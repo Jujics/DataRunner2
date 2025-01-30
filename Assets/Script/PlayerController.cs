@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction boostAction;
     private InputAction turnAction;
+    private InputAction driftAction;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         moveAction = playerInput.actions.FindAction("Forward");
         boostAction = playerInput.actions.FindAction("Boost");
         turnAction = playerInput.actions.FindAction("Turn");
+        driftAction = playerInput.actions.FindAction("Drift");
     }
 
     void FixedUpdate()
@@ -61,16 +63,33 @@ public class PlayerController : MonoBehaviour
 
     private void Turn()
     {
-        if (turnAction.ReadValue<float>() > 0)
+        if (driftAction.ReadValue<float>() > 0)
         {
-            Quaternion turnRotation = Quaternion.Euler(0, -turnSpeed, 0);
-            rb.MoveRotation(rb.rotation * turnRotation);
-        }
+            if (turnAction.ReadValue<float>() > 0)
+            {
+                Quaternion turnRotation = Quaternion.Euler(0, -driftTurnSpeed, 0);
+                rb.MoveRotation(rb.rotation * turnRotation);
+            }
 
-        if (turnAction.ReadValue<float>() < 0)
+            if (turnAction.ReadValue<float>() < 0)
+            {
+                Quaternion turnRotation = Quaternion.Euler(0, driftTurnSpeed, 0);
+                rb.MoveRotation(rb.rotation * turnRotation);
+            }
+        }
+        else
         {
-            Quaternion turnRotation = Quaternion.Euler(0, turnSpeed, 0);
-            rb.MoveRotation(rb.rotation * turnRotation);
+            if (turnAction.ReadValue<float>() > 0 )
+            {
+                Quaternion turnRotation = Quaternion.Euler(0, -turnSpeed, 0);
+                rb.MoveRotation(rb.rotation * turnRotation);
+            }
+
+            if (turnAction.ReadValue<float>() < 0)
+            {
+                Quaternion turnRotation = Quaternion.Euler(0, turnSpeed, 0);
+                rb.MoveRotation(rb.rotation * turnRotation);
+            }
         }
     }
 }
