@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction moveAction;
     private InputAction boostAction;
+    private InputAction turnAction;
 
     void Start()
     {
@@ -25,12 +26,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         moveAction = playerInput.actions.FindAction("Forward");
         boostAction = playerInput.actions.FindAction("Boost");
+        turnAction = playerInput.actions.FindAction("Turn");
     }
 
     void FixedUpdate()
     {
         Boost();
         Forward();
+        Turn();
     }
 
     private void Boost()
@@ -53,6 +56,21 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 moveDirection = transform.forward * moveInput * playerSpeed;
             rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z); 
+        }
+    }
+
+    private void Turn()
+    {
+        if (turnAction.ReadValue<float>() > 0)
+        {
+            Quaternion turnRotation = Quaternion.Euler(0, -turnSpeed, 0);
+            rb.MoveRotation(rb.rotation * turnRotation);
+        }
+
+        if (turnAction.ReadValue<float>() < 0)
+        {
+            Quaternion turnRotation = Quaternion.Euler(0, turnSpeed, 0);
+            rb.MoveRotation(rb.rotation * turnRotation);
         }
     }
 }
