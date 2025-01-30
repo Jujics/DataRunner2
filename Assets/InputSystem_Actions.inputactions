@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "Forward",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "44b0586a-ebcb-43c7-a58e-e088a0404254",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Turn",
@@ -145,7 +145,7 @@
                 {
                     "name": "",
                     "id": "3aae8b9b-7689-4af2-b773-4d992399130e",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
