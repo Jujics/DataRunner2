@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void Turn()
     {
-        if (playerInput.drift == true)
+        if (playerInput.leftDrift == true || playerInput.rightDrift == true)
         {
             if (playerInput.left == true && playerInput.right == false)
             {

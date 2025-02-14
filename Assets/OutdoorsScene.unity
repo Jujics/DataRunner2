@@ -593,6 +593,7 @@ MonoBehaviour:
   boostSpeed: 20
   turnSpeed: 1
   driftTurnSpeed: 3
+  playerInput: {fileID: 969931937}
 --- !u!114 &464552153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,6 +918,8 @@ MonoBehaviour:
   right: 0
   boost: 0
   drift: 0
+  leftDrift: 0
+  rightDrift: 0
   playerInput: {fileID: 464552153}
 --- !u!1 &1198416621
 GameObject:

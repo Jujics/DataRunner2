@@ -37,19 +37,12 @@ public class PlayerInputCheck : MonoBehaviour
     private void ForwardCheck()
     {
         float moveInput = moveAction.ReadValue<float>();
-        switch (moveInput)
+        forward = moveInput switch
         {
-            case 1f:
-            {
-                forward = true;
-                break;
-            }
-            case 0f:
-            {
-                forward = false;
-                break;
-            }
-        }
+            1f => true,
+            0f => false,
+            _ => forward
+        };
     }
 
     private void TurnCheck()
@@ -81,19 +74,12 @@ public class PlayerInputCheck : MonoBehaviour
     private void BoostCheck()
     {
         float boostInput = boostAction.ReadValue<float>();
-        switch (boostInput)
+        boost = boostInput switch
         {
-            case 1f:
-            {
-                boost = true;
-                break;
-            }
-            case 0f:
-            {
-                boost = false;
-                break;
-            }
-        }
+            1f => true,
+            0f => false,
+            _ => boost
+        };
     }
 
     private void DriftCheck()
@@ -104,18 +90,20 @@ public class PlayerInputCheck : MonoBehaviour
             case 1f:
             {
                 drift = true;
-                if (left == true && right == false)
+                switch (left)
                 {
-                    leftDrift = true;
-                }
-                else if (left == false && right == true)
-                {
-                    rightDrift = true;
-                }
-                else
-                {
-                    leftDrift = false;
-                    rightDrift = false;
+                    case true when right == false:
+                        leftDrift = true;
+                        rightDrift = false;
+                        break;
+                    case false when right == true:
+                        rightDrift = true;
+                        leftDrift = false;
+                        break;
+                    default:
+                        leftDrift = false;
+                        rightDrift = false;
+                        break;
                 }
                 break;
             }
@@ -127,7 +115,5 @@ public class PlayerInputCheck : MonoBehaviour
                 break;
             }
         }
-
-        
     }
 }
