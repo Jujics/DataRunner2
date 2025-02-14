@@ -3,32 +3,28 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Player Stats")]
+    [Header("Player Speed")]
     private float playerSpeed;
     [SerializeField]
     private float normalSpeed;
     [SerializeField]
     private float boostSpeed;
+    [Header("Player Turn")]
     [SerializeField]
     private float turnSpeed;
     [SerializeField]
     private float driftTurnSpeed;
+    [SerializeField]
+    private PlayerInputCheck playerInput;
 
+    
+    
     private Rigidbody rb;
-    private PlayerInput playerInput;
-    private InputAction moveAction;
-    private InputAction boostAction;
-    private InputAction turnAction;
-    private InputAction driftAction;
+    
 
     void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
-        moveAction = playerInput.actions.FindAction("Forward");
-        boostAction = playerInput.actions.FindAction("Boost");
-        turnAction = playerInput.actions.FindAction("Turn");
-        driftAction = playerInput.actions.FindAction("Drift");
     }
 
     void FixedUpdate()
@@ -40,12 +36,11 @@ public class PlayerController : MonoBehaviour
 
     private void Boost()
     {
-        float boostInput = boostAction.ReadValue<float>();
-        if (boostInput > 0)
+        if (playerInput.boost == true)
         {
             playerSpeed = boostSpeed;
         }
-        else if (boostInput <= 0)
+        else if (playerInput.boost == false)
         {
             playerSpeed = normalSpeed;
         }
@@ -53,25 +48,24 @@ public class PlayerController : MonoBehaviour
 
     private void Forward()
     {
-        float moveInput = moveAction.ReadValue<float>();
-        if (moveInput > 0)
+        if (playerInput.forward == true)
         {
-            Vector3 moveDirection = transform.forward * moveInput * playerSpeed;
+            Vector3 moveDirection = transform.forward * 1f * playerSpeed;
             rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z); 
         }
     }
 
     private void Turn()
     {
-        if (driftAction.ReadValue<float>() > 0)
+        if (playerInput.drift == true)
         {
-            if (turnAction.ReadValue<float>() > 0)
+            if (playerInput.left == true && playerInput.right == false)
             {
                 Quaternion turnRotation = Quaternion.Euler(0, -driftTurnSpeed, 0);
                 rb.MoveRotation(rb.rotation * turnRotation);
             }
 
-            if (turnAction.ReadValue<float>() < 0)
+            if (playerInput.right == true && playerInput.left == false)
             {
                 Quaternion turnRotation = Quaternion.Euler(0, driftTurnSpeed, 0);
                 rb.MoveRotation(rb.rotation * turnRotation);
@@ -79,13 +73,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (turnAction.ReadValue<float>() > 0 )
+            if (playerInput.left == true && playerInput.right == false)
             {
                 Quaternion turnRotation = Quaternion.Euler(0, -turnSpeed, 0);
                 rb.MoveRotation(rb.rotation * turnRotation);
             }
 
-            if (turnAction.ReadValue<float>() < 0)
+            if (playerInput.right == true && playerInput.left == false)
             {
                 Quaternion turnRotation = Quaternion.Euler(0, turnSpeed, 0);
                 rb.MoveRotation(rb.rotation * turnRotation);

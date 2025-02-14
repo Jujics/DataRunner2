@@ -9,6 +9,8 @@ public class PlayerInputCheck : MonoBehaviour
     public bool right;
     public bool boost;
     public bool drift;
+    public bool leftDrift;
+    public bool rightDrift;
     
     [SerializeField]
     private PlayerInput playerInput;
@@ -102,13 +104,30 @@ public class PlayerInputCheck : MonoBehaviour
             case 1f:
             {
                 drift = true;
+                if (left == true && right == false)
+                {
+                    leftDrift = true;
+                }
+                else if (left == false && right == true)
+                {
+                    rightDrift = true;
+                }
+                else
+                {
+                    leftDrift = false;
+                    rightDrift = false;
+                }
                 break;
             }
             case 0f:
             {
                 drift = false;
+                leftDrift = false;
+                rightDrift = false;
                 break;
             }
         }
+
+        
     }
 }
