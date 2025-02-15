@@ -17,21 +17,18 @@ public class PlayerInputCheck : MonoBehaviour
     private InputAction moveAction;
     private InputAction boostAction;
     private InputAction turnAction;
-    private InputAction driftAction;
 
     void Start()
     {
         moveAction = playerInput.actions.FindAction("Forward");
         boostAction = playerInput.actions.FindAction("Boost");
         turnAction = playerInput.actions.FindAction("Turn");
-        driftAction = playerInput.actions.FindAction("Drift");
     }
     void Update()
     {
         ForwardCheck();
         TurnCheck();
         BoostCheck();
-        DriftCheck();
     }
 
     private void ForwardCheck()
@@ -82,38 +79,5 @@ public class PlayerInputCheck : MonoBehaviour
         };
     }
 
-    private void DriftCheck()
-    {
-        float driftInput = driftAction.ReadValue<float>();
-        switch (driftInput)
-        {
-            case 1f:
-            {
-                drift = true;
-                switch (left)
-                {
-                    case true when right == false:
-                        leftDrift = true;
-                        rightDrift = false;
-                        break;
-                    case false when right == true:
-                        rightDrift = true;
-                        leftDrift = false;
-                        break;
-                    default:
-                        leftDrift = false;
-                        rightDrift = false;
-                        break;
-                }
-                break;
-            }
-            case 0f:
-            {
-                drift = false;
-                leftDrift = false;
-                rightDrift = false;
-                break;
-            }
-        }
-    }
+    
 }

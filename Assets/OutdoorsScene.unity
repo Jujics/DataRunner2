@@ -589,10 +589,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed0cc11b90ebc049af406d7cee03c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 10
-  boostSpeed: 20
-  turnSpeed: 1
-  driftTurnSpeed: 3
+  normalSpeed: 20
+  boostSpeed: 50
+  accelerationTime: 1
+  turnSpeed: 50
+  driftTurnSpeed: 150
   playerInput: {fileID: 969931937}
 --- !u!114 &464552153
 MonoBehaviour:

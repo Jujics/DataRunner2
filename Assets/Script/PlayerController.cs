@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,9 +7,12 @@ public class PlayerController : MonoBehaviour
     [Header("Player Speed")]
     private float playerSpeed;
     [SerializeField]
-    private float normalSpeed;
+    private float normalSpeed = 5f;
     [SerializeField]
-    private float boostSpeed;
+    private float boostSpeed = 10f;
+    [SerializeField]
+    private float accelerationTime = 1f; 
+
     [Header("Player Turn")]
     [SerializeField]
     private float turnSpeed;
@@ -17,14 +21,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerInputCheck playerInput;
 
-    
-    
+    private bool isBoosting;
     private Rigidbody rb;
-    
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerSpeed = normalSpeed;
     }
 
     void FixedUpdate()
@@ -36,54 +39,57 @@ public class PlayerController : MonoBehaviour
 
     private void Boost()
     {
-        if (playerInput.boost == true)
+        if (playerInput.boost && !isBoosting)
         {
-            playerSpeed = boostSpeed;
+           
+            StopAllCoroutines(); 
+            StartCoroutine(AccelerateToSpeed(boostSpeed));
+            isBoosting = true;
         }
-        else if (playerInput.boost == false)
+        else if (!playerInput.boost && isBoosting)
         {
-            playerSpeed = normalSpeed;
+            StopAllCoroutines(); 
+            StartCoroutine(AccelerateToSpeed(normalSpeed));
+            isBoosting = false;
         }
     }
 
     private void Forward()
     {
-        if (playerInput.forward == true)
+        if (playerInput.forward)
         {
-            Vector3 moveDirection = transform.forward * 1f * playerSpeed;
-            rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z); 
+            Vector3 moveDirection = transform.forward * playerSpeed;
+            rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z);
         }
     }
 
     private void Turn()
     {
-        if (playerInput.leftDrift == true || playerInput.rightDrift == true)
+        if (playerInput.left && !playerInput.right)
         {
-            if (playerInput.left == true && playerInput.right == false)
-            {
-                Quaternion turnRotation = Quaternion.Euler(0, -driftTurnSpeed, 0);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
-
-            if (playerInput.right == true && playerInput.left == false)
-            {
-                Quaternion turnRotation = Quaternion.Euler(0, driftTurnSpeed, 0);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
+            Quaternion turnRotation = Quaternion.Euler(0, -turnSpeed * Time.fixedDeltaTime, 0);
+            rb.MoveRotation(rb.rotation * turnRotation);
         }
-        else
+
+        if (playerInput.right && !playerInput.left)
         {
-            if (playerInput.left == true && playerInput.right == false)
-            {
-                Quaternion turnRotation = Quaternion.Euler(0, -turnSpeed, 0);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
-
-            if (playerInput.right == true && playerInput.left == false)
-            {
-                Quaternion turnRotation = Quaternion.Euler(0, turnSpeed, 0);
-                rb.MoveRotation(rb.rotation * turnRotation);
-            }
+            Quaternion turnRotation = Quaternion.Euler(0, turnSpeed * Time.fixedDeltaTime, 0);
+            rb.MoveRotation(rb.rotation * turnRotation);
         }
+    }
+
+    private IEnumerator AccelerateToSpeed(float targetSpeed)
+    {
+        float startSpeed = playerSpeed;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < accelerationTime)
+        {
+            playerSpeed = Mathf.Lerp(startSpeed, targetSpeed, elapsedTime / accelerationTime);
+            elapsedTime += Time.deltaTime;
+            yield return null; 
+        }
+
+        playerSpeed = targetSpeed;
     }
 }
