@@ -33,7 +33,7 @@ public class PlayerForwardState : PlayerIdleState
             player.GetComponent<Rigidbody>().linearVelocity = player.transform.forward * currentSpeed;
         }
 
-        if (playerInput.Player.Boost.ReadValue<float>() > 0.1f)
+        if (playerInput.Player.Boost.ReadValue<float>() > 0.1f && player.boostAmount > 0)
         {
             player.SwitchState(new PlayerBoostState(), currentSpeed);
         }

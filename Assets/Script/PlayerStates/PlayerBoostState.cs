@@ -17,8 +17,7 @@ public class PlayerBoostState : PlayerIdleState
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
         float forwardInput = playerInput.Player.Forward.ReadValue<float>();
-
-        if (forwardInput > 0.1f)  
+        if (forwardInput > 0.1f || player.boostAmount > 0)  
         {
             Vector3 forwardMomentum = player.transform.forward * forwardInput;
             player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * currentSpeed;
@@ -33,11 +32,12 @@ public class PlayerBoostState : PlayerIdleState
         }
 
         Debug.Log(playerInput.Player.Boost.ReadValue<float>());
-        if (playerInput.Player.Boost.ReadValue<float>() == 0f)
+        if (playerInput.Player.Boost.ReadValue<float>() == 0f || player.boostAmount <= 0)
         {
             player.SwitchState(new PlayerForwardState(), currentSpeed);
         }
-        
+        player.boostAmount--;
+        Debug.Log(player.boostAmount);
         Turn(player, playerInput);
         
     }
