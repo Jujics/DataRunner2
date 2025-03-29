@@ -549,7 +549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 464552151}
-  - component: {fileID: 464552152}
+  - component: {fileID: 464552156}
   - component: {fileID: 464552153}
   - component: {fileID: 464552155}
   - component: {fileID: 464552154}
@@ -577,24 +577,6 @@ Transform:
   - {fileID: 969931936}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &464552152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464552150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed0cc11b90ebc049af406d7cee03c27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalSpeed: 20
-  boostSpeed: 50
-  accelerationTime: 1
-  turnSpeed: 50
-  driftTurnSpeed: 150
-  playerInput: {fileID: 969931937}
 --- !u!114 &464552153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +655,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &464552156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464552150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa82d06eb13ac894dba2febb0bbad898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &561300001
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,6 +916,33 @@ MonoBehaviour:
   leftDrift: 0
   rightDrift: 0
   playerInput: {fileID: 464552153}
+  moveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e3e0e881-44b1-4af5-8f9a-9f201ccafb4e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  boostAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e83b97fb-c4bf-472d-90eb-3a2b6fc107b1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  turnAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f1bab1f1-1cf0-4c87-90c8-d2af4d687422
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &1198416621
 GameObject:
   m_ObjectHideFlags: 0
