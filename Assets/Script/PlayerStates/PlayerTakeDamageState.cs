@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerTakeDamageState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player)
+    public override void EnterState(PlayerStateManager player,float _currentSpeed)
     {
         throw new System.NotImplementedException();
     }

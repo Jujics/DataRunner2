@@ -458,7 +458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385253457}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.117927104, y: 0.000000023628909, z: -0.0000000028060687, w: 0.99302226}
+  m_LocalRotation: {x: 0.117927104, y: 0.00000007088672, z: -0.000000008418206, w: 0.99302226}
   m_LocalPosition: {x: 0, y: 1.9499999, z: -80.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -908,41 +908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51744769bdbe10a4faf1559e6c2291cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forward: 0
-  left: 0
-  right: 0
-  boost: 0
-  drift: 0
-  leftDrift: 0
-  rightDrift: 0
-  playerInput: {fileID: 464552153}
-  moveAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e3e0e881-44b1-4af5-8f9a-9f201ccafb4e
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  boostAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e83b97fb-c4bf-472d-90eb-3a2b6fc107b1
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  turnAction:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: f1bab1f1-1cf0-4c87-90c8-d2af4d687422
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &1198416621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.117927104, y: 0.000000023628909, z: -0.0000000028060687, w: 0.99302226}
+  m_LocalRotation: {x: 0.117927104, y: 0.00000007088672, z: -0.000000008418206, w: 0.99302226}
   m_LocalPosition: {x: 0, y: 1.9499999, z: -80.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

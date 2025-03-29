@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerBoostPadState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player)
+    public override void EnterState(PlayerStateManager player, float currentSpeed)
     {
         throw new System.NotImplementedException();
     }

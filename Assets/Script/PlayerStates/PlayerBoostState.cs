@@ -3,14 +3,56 @@ using UnityEngine.InputSystem;
 
 public class PlayerBoostState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player)
+    private float maxSpeed = 50f;
+    private float currentSpeed;
+    static float t = 0.0f;
+    
+    public override void EnterState(PlayerStateManager player, float _currentSpeed)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entered PlayerBoostState");
+        currentSpeed = _currentSpeed;
     }
 
+    
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        throw new System.NotImplementedException();
+        float forwardInput = playerInput.Player.Forward.ReadValue<float>();
+
+        if (forwardInput > 0.1f)  
+        {
+            Vector3 forwardMomentum = player.transform.forward * forwardInput;
+            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * currentSpeed;
+            if (currentSpeed < maxSpeed)
+            {
+                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, 5f * Time.deltaTime); 
+            }
+        }
+        else
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, 0f, 5f * Time.deltaTime);
+        }
+
+        Debug.Log(playerInput.Player.Boost.ReadValue<float>());
+        if (playerInput.Player.Boost.ReadValue<float>() == 0f)
+        {
+            player.SwitchState(new PlayerForwardState(), currentSpeed);
+        }
+        
+        Turn(player, playerInput);
+        
+    }
+    
+    public void Turn(PlayerStateManager player , PlayerInput playerInput)
+    {
+        float turnInput = playerInput.Player.Turn.ReadValue<float>();
+        if (turnInput > 0.1f)
+        {
+            player.GetComponent<Transform>().Rotate(0, -1, 0);
+        }
+        else if (turnInput < -0.1f)
+        {
+            player.GetComponent<Transform>().Rotate(0, 1, 0);
+        }
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)

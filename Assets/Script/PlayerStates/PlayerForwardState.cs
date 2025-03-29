@@ -1,16 +1,58 @@
+using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 public class PlayerForwardState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player)
+    private float maxSpeed = 20f;
+    private float currentSpeed;
+    static float t = 0.0f;
+    
+    public override void EnterState(PlayerStateManager player, float _currentSpeed)
     {
         Debug.Log("Entered PlayerForwardState");
+        currentSpeed = _currentSpeed;
     }
 
+    
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        Debug.Log("update PlayerForwardState");
+        float forwardInput = playerInput.Player.Forward.ReadValue<float>();
+
+        if (forwardInput > 0.1f)  
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, 5f * Time.deltaTime);
+            Vector3 forwardMomentum = player.transform.forward * forwardInput;
+            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * currentSpeed;
+        }
+        else 
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, 0f, 5f * Time.deltaTime);
+            player.GetComponent<Rigidbody>().linearVelocity = player.transform.forward * currentSpeed;
+        }
+
+        if (playerInput.Player.Boost.ReadValue<float>() > 0.1f)
+        {
+            player.SwitchState(new PlayerBoostState(), currentSpeed);
+        }
+        
+        Turn(player, playerInput);
+        
+    }
+    
+    public void Turn(PlayerStateManager player , PlayerInput playerInput)
+    {
+        float turnInput = playerInput.Player.Turn.ReadValue<float>();
+        if (turnInput > 0.1f)
+        {
+            player.GetComponent<Transform>().Rotate(0, -1, 0);
+        }
+        else if (turnInput < -0.1f)
+        {
+            player.GetComponent<Transform>().Rotate(0, 1, 0);
+        }
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)

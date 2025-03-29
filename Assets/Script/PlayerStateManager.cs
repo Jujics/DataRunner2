@@ -32,7 +32,7 @@ public class PlayerStateManager : MonoBehaviour
     void Start()
     {
         currentState = waitState;
-        currentState.EnterState(this);
+        currentState.EnterState(this, 0f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,9 +60,9 @@ public class PlayerStateManager : MonoBehaviour
         currentState.UpdateState(this, actionAsset);
     }
 
-    public void SwitchState(PlayerIdleState newState)
+    public void SwitchState(PlayerIdleState newState, float currentSpeed)
     {
         currentState = newState;
-        newState.EnterState(this);
+        newState.EnterState(this, currentSpeed);
     }
 }
