@@ -5,12 +5,20 @@ public class PlayerWaitState : PlayerIdleState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entered PlayerWaitState");
     }
 
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Player Wait State");
+        if (playerInput.Player.Forward.ReadValue<float>() < 0.9f)
+        {
+            return;
+        }
+        else
+        {
+            player.SwitchState(new PlayerForwardState());
+        }
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)

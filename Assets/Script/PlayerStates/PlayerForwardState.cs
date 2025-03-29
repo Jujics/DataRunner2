@@ -5,12 +5,12 @@ public class PlayerForwardState : PlayerIdleState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entered PlayerForwardState");
     }
 
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("update PlayerForwardState");
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)
