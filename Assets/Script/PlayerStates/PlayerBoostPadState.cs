@@ -32,7 +32,10 @@ public class PlayerBoostPadState : PlayerIdleState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
     {
-        throw new System.NotImplementedException();
+        if (other.tag == "Collectible")
+        {
+            player.scoreAmount += 10;
+        }
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)

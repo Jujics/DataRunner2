@@ -76,6 +76,11 @@ public class PlayerBoostState : PlayerIdleState
         {
             player.SwitchState(new PlayerBoostPadState(), currentSpeed);
         }
+
+        if (other.tag == "Collectible")
+        {
+            player.scoreAmount += 10;
+        }
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
