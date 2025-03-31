@@ -78,7 +78,8 @@ public class PlayerForwardState : PlayerIdleState
         }
         if (other.tag == "Collectible")
         {
-            player.scoreAmount += 10;
+            player.comboManager.ComboCount();
+            player.scoreAmount += 10 * player.comboManager._currentCombo;
         }
     }
 

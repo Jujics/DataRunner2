@@ -13,7 +13,8 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWaitState waitState = new PlayerWaitState();
     public int boostAmount = 100;
     public int scoreAmount = 10;
-
+    public ComboManager comboManager;
+    
     [SerializeField] private PlayerInput actionAsset;
 
     private void Awake()
