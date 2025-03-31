@@ -67,7 +67,15 @@ public class PlayerForwardState : PlayerIdleState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
     {
-        throw new System.NotImplementedException();
+        if (other.tag == "Damage")
+        {
+            player.SwitchState(new PlayerTakeDamageState(), currentSpeed);
+        }
+
+        if (other.tag == "Boost")
+        {
+            player.SwitchState(new PlayerBoostPadState(), currentSpeed);
+        }
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)

@@ -3,14 +3,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerBoostPadState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player, float currentSpeed)
+    float currentSpeed;
+    private static float t = 0.0f;
+    public override void EnterState(PlayerStateManager player,float _currentSpeed)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entered PlayerBoostPadState");
+        currentSpeed = _currentSpeed;
     }
 
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        throw new System.NotImplementedException();
+        if (currentSpeed < 10f)
+        {
+            player.SwitchState(new PlayerForwardState(), currentSpeed);
+        }
+        currentSpeed = Mathf.Lerp(currentSpeed, 50f, 2f * Time.deltaTime);
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)

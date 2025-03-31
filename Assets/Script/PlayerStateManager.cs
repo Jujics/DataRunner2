@@ -12,6 +12,7 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerTakeDamageState takeDamageState = new PlayerTakeDamageState();
     public PlayerWaitState waitState = new PlayerWaitState();
     public int boostAmount = 100;
+    public int scoreAmount = 10;
 
     [SerializeField] private PlayerInput actionAsset;
 
