@@ -81,7 +81,7 @@ public class PlayerBoostState : PlayerIdleState
         {
             other.gameObject.SetActive(false);
             player.comboManager.ComboCount();
-            player.scoreAmount += 10 * player.comboManager._currentCombo;
+            player.scoreAmount += 10 * player.comboManager.CurrentCombo;
         }
     }
 

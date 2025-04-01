@@ -1,37 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Timers;
-using UnityEngine;
 
 public class ComboManager
 {
     private static int currentCombo = 0;
-    private static System.Timers.Timer comboTimer;
+    private static Timer comboTimer;
+    private static readonly object lockObject = new object();
 
-    public int _currentCombo
+    public int CurrentCombo
     {
-        get { return currentCombo; }
+        get { lock (lockObject) { return currentCombo; } }
     }
 
     public void ComboCount()
     {
-        if (comboTimer.Enabled)
+        lock (lockObject)
         {
+            if (comboTimer == null)
+            {
+                comboTimer = new Timer(2000);
+                comboTimer.Elapsed += OnTimedEvent;
+                comboTimer.AutoReset = false; 
+            }
+
             comboTimer.Stop();
+            currentCombo++;
+            comboTimer.Start();
         }
-        currentCombo++;
-        SetTimer();
-    }
-    private static void SetTimer()
-    {
-        comboTimer = new System.Timers.Timer(2000);
-        comboTimer.Elapsed += OnTimedEvent;
-        comboTimer.AutoReset = true;
-        comboTimer.Enabled = true;
     }
 
-    private static void OnTimedEvent(object source, ElapsedEventArgs e)
+    private void OnTimedEvent(object source, ElapsedEventArgs e)
     {
-        currentCombo = 0;
+        lock (lockObject)
+        {
+            currentCombo = 0;
+            comboTimer?.Dispose();
+            comboTimer = null;
+        }
+    }
+
+    public void Reset()
+    {
+        lock (lockObject)
+        {
+            currentCombo = 0;
+            comboTimer?.Stop();
+            comboTimer?.Dispose();
+            comboTimer = null;
+        }
     }
 }
