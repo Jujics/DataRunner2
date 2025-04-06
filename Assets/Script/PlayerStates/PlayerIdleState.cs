@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public abstract class PlayerIdleState 
 {
-    public abstract void EnterState(PlayerStateManager player, float currentSpeed);
+    public abstract void EnterState(PlayerStateManager player);
 
     public abstract void UpdateState(PlayerStateManager player, PlayerInput playerInput);
     

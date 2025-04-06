@@ -3,32 +3,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerBoostPadState : PlayerIdleState
 {
-    float currentSpeed;
+    
     private float maxSpeed = 70f;
     private static float t = 3f;
     private Quaternion lastFrameRotation;
-    public override void EnterState(PlayerStateManager player,float _currentSpeed)
+    public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Entered PlayerBoostPadState");
-        currentSpeed = _currentSpeed;
         lastFrameRotation = player.transform.rotation;
     }
 
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
         float forwardInput = playerInput.Player.Forward.ReadValue<float>();
-        if (currentSpeed < maxSpeed - 5f)
+        if (player.currentSpeed < maxSpeed - 5f)
         {
             Vector3 forwardMomentum = player.transform.forward * forwardInput;
-            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * currentSpeed;
-            if (currentSpeed < maxSpeed)
+            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * player.currentSpeed;
+            if (player.currentSpeed < maxSpeed)
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, t * Time.deltaTime); 
+                player.currentSpeed = Mathf.Lerp(player.currentSpeed, maxSpeed, t * Time.deltaTime); 
             }
         }
         else
         {
-            player.SwitchState(new PlayerForwardState(), currentSpeed);
+            player.SwitchState(new PlayerForwardState());
         }
         Turn(player, playerInput);
     }

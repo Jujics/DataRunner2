@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerWaitState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player, float currentSpeed)
+    public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Entered PlayerWaitState");
     }
@@ -17,7 +17,7 @@ public class PlayerWaitState : PlayerIdleState
         }
         else
         {
-            player.SwitchState(new PlayerForwardState(), 0f);
+            player.SwitchState(new PlayerForwardState());
         }
     }
 

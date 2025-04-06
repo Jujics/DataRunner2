@@ -4,14 +4,12 @@ using UnityEngine.InputSystem;
 public class PlayerBoostState : PlayerIdleState
 {
     private float maxSpeed = 50f;
-    private float currentSpeed;
     private Quaternion lastFrameRotation;
     static float t = 0.0f;
     
-    public override void EnterState(PlayerStateManager player, float _currentSpeed)
+    public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Entered PlayerBoostState");
-        currentSpeed = _currentSpeed;
         lastFrameRotation = player.transform.rotation;
     }
 
@@ -22,20 +20,20 @@ public class PlayerBoostState : PlayerIdleState
         if (forwardInput > 0.1f || player.boostAmount > 0)  
         {
             Vector3 forwardMomentum = player.transform.forward * forwardInput;
-            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * currentSpeed;
-            if (currentSpeed < maxSpeed)
+            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * player.currentSpeed;
+            if (player.currentSpeed < maxSpeed)
             {
-                currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, 5f * Time.deltaTime); 
+                player.currentSpeed = Mathf.Lerp(player.currentSpeed, maxSpeed, 5f * Time.deltaTime); 
             }
         }
         else
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, 0f, 5f * Time.deltaTime);
+            player.currentSpeed = Mathf.Lerp(player.currentSpeed, 0f, 5f * Time.deltaTime);
         }
 
         if (playerInput.Player.Boost.ReadValue<float>() == 0f || player.boostAmount <= 0)
         {
-            player.SwitchState(new PlayerForwardState(), currentSpeed);
+            player.SwitchState(new PlayerForwardState());
         }
         player.boostAmount--;
         Turn(player, playerInput);
@@ -77,12 +75,12 @@ public class PlayerBoostState : PlayerIdleState
     {
         if (other.tag == "Damage")
         {
-            player.SwitchState(new PlayerTakeDamageState(), currentSpeed);
+            player.SwitchState(new PlayerTakeDamageState());
         }
 
         if (other.tag == "Boost")
         {
-            player.SwitchState(new PlayerBoostPadState(), currentSpeed);
+            player.SwitchState(new PlayerBoostPadState());
         }
 
         if (other.tag == "Collectible")

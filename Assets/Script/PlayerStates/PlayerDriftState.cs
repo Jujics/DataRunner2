@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerDriftState : PlayerIdleState
 {
-    public override void EnterState(PlayerStateManager player, float currentSpeed)
+    public override void EnterState(PlayerStateManager player)
     {
         return;
     }

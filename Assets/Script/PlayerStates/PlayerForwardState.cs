@@ -7,14 +7,12 @@ using Debug = UnityEngine.Debug;
 public class PlayerForwardState : PlayerIdleState
 {
     private float maxSpeed = 20f;
-    private float currentSpeed;
     private Quaternion lastFrameRotation;
     static float t = 0.0f;
     
-    public override void EnterState(PlayerStateManager player, float _currentSpeed)
+    public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Entered PlayerForwardState");
-        currentSpeed = _currentSpeed;
         lastFrameRotation = player.transform.rotation;
     }
 
@@ -25,19 +23,19 @@ public class PlayerForwardState : PlayerIdleState
 
         if (forwardInput > 0.1f)  
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, 5f * Time.deltaTime);
+            player.currentSpeed = Mathf.Lerp(player.currentSpeed, maxSpeed, 5f * Time.deltaTime);
             Vector3 forwardMomentum = player.transform.forward * forwardInput;
-            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * currentSpeed;
+            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * player.currentSpeed;
         }
         else 
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, 0f, 5f * Time.deltaTime);
-            player.GetComponent<Rigidbody>().linearVelocity = player.transform.forward * currentSpeed;
+            player.currentSpeed = Mathf.Lerp(player.currentSpeed, 0f, 5f * Time.deltaTime);
+            player.GetComponent<Rigidbody>().linearVelocity = player.transform.forward * player.currentSpeed;
         }
 
         if (playerInput.Player.Boost.ReadValue<float>() > 0.1f && player.boostAmount > 0)
         {
-            player.SwitchState(new PlayerBoostState(), currentSpeed);
+            player.SwitchState(new PlayerBoostState());
         }
         
         Turn(player, playerInput);
@@ -79,17 +77,17 @@ public class PlayerForwardState : PlayerIdleState
     {
         if (other.tag == "Damage")
         {
-            player.SwitchState(new PlayerTakeDamageState(), currentSpeed);
+            player.SwitchState(new PlayerTakeDamageState());
         }
 
         if (other.tag == "BoostPylone")
         {
-            player.SwitchState(new PlayerBoostPadState(), currentSpeed);
+            player.SwitchState(new PlayerBoostPadState());
             player.boostAmount += 10;
         }
         if (other.tag == "BoostPad")
         {
-            player.SwitchState(new PlayerBoostPadState(), currentSpeed);
+            player.SwitchState(new PlayerBoostPadState());
         }
         if (other.tag == "Collectible")
         {

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +15,9 @@ public class PlayerStateManager : MonoBehaviour
     public int boostAmount = 100;
     public int scoreAmount = 10;
     public ComboManager comboManager;
+    public float currentSpeed = 0f;
     
+    [SerializeField] private TMP_Text speedText;
     [SerializeField] private PlayerInput actionAsset;
 
     private void Awake()
@@ -35,7 +38,7 @@ public class PlayerStateManager : MonoBehaviour
     void Start()
     {
         currentState = waitState;
-        currentState.EnterState(this, 0f);
+        currentState.EnterState(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,12 +63,13 @@ public class PlayerStateManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        speedText.text = currentSpeed.ToString("0.0");
         currentState.UpdateState(this, actionAsset);
     }
 
-    public void SwitchState(PlayerIdleState newState, float currentSpeed)
+    public void SwitchState(PlayerIdleState newState)
     {
         currentState = newState;
-        newState.EnterState(this, currentSpeed);
+        newState.EnterState(this);
     }
 }
