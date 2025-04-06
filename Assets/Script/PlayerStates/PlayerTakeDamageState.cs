@@ -4,20 +4,53 @@ using UnityEngine.InputSystem;
 public class PlayerTakeDamageState : PlayerIdleState
 {
     
-    private static float t = 0.0f;
+    private float maxSpeed = 5f;
+    private static float t = 3f;
+    private Quaternion lastFrameRotation;
     public override void EnterState(PlayerStateManager player)
     {
-        Debug.Log("Entered PlayerTakeDamageState");
-        player.scoreAmount -= 20;
+        Debug.Log("Entered PlayerDamageState");
+        lastFrameRotation = player.transform.rotation;
     }
 
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        if (player.currentSpeed < 10f)
+        float forwardInput = playerInput.Player.Forward.ReadValue<float>();
+        if (player.currentSpeed > maxSpeed + 0.5f)
+        {
+            Vector3 forwardMomentum = player.transform.forward * forwardInput;
+            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * player.currentSpeed;
+            if (player.currentSpeed > maxSpeed)
+            {
+                player.currentSpeed = Mathf.Lerp(player.currentSpeed, maxSpeed, t * Time.deltaTime); 
+            }
+        }
+        else
         {
             player.SwitchState(new PlayerForwardState());
         }
-        player.currentSpeed = Mathf.Lerp(player.currentSpeed, 9f, 2f * Time.deltaTime);
+        Turn(player, playerInput);
+    }
+    
+    public void Turn(PlayerStateManager player , PlayerInput playerInput)
+    {
+        float turnInput = playerInput.Player.Turn.ReadValue<float>();
+        if (turnInput > 0.1f)
+        {
+            player.GetComponent<Transform>().Rotate(0, -1, 0);
+        }
+        else if (turnInput < -0.1f)
+        {
+            player.GetComponent<Transform>().Rotate(0, 1, 0);
+        }
+        else
+        {
+            if (player.GetComponent<Transform>().rotation != lastFrameRotation);
+            {
+                player.GetComponent<Transform>().rotation = lastFrameRotation;
+            }
+        }
+        lastFrameRotation = player.GetComponent<Transform>().rotation;
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)
