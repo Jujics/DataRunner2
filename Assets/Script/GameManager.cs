@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private DialogueManager dialogueManager;
 
-    public enum GameState
+    public enum GameState 
     {
         Menu,
         BeforeGame,
@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
         PostGame,
         EndGame
     }
-    public GameState CurrentState { get; private set; } 
+
+    public GameState CurrentState;
 
     public void SwitchState(GameState newState)  
     {

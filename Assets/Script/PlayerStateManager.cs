@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,8 +18,8 @@ public class PlayerStateManager : MonoBehaviour
     public ComboManager comboManager;
     public float currentSpeed = 0f;
     
-    [SerializeField] private TMP_Text speedText;
-    [SerializeField] private PlayerInput actionAsset;
+    [SerializeField] protected TMP_Text speedText;
+    private PlayerInput actionAsset;
 
     private void Awake()
     {
