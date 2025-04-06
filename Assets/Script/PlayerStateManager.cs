@@ -19,6 +19,7 @@ public class PlayerStateManager : MonoBehaviour
     public float currentSpeed = 0f;
     
     [SerializeField] protected TMP_Text speedText;
+    [SerializeField] protected TMP_Text scoreText;
     private PlayerInput actionAsset;
 
     private void Awake()
@@ -65,6 +66,7 @@ public class PlayerStateManager : MonoBehaviour
     void FixedUpdate()
     {
         speedText.text = currentSpeed.ToString("0.0");
+        scoreText.text = scoreAmount.ToString();
         currentState.UpdateState(this, actionAsset);
     }
 
