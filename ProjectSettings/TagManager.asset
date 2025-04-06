@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Pylone
+  - BoostPylone
   layers:
   - Default
   - TransparentFX

@@ -5,12 +5,14 @@ public class PlayerBoostState : PlayerIdleState
 {
     private float maxSpeed = 50f;
     private float currentSpeed;
+    private Quaternion lastFrameRotation;
     static float t = 0.0f;
     
     public override void EnterState(PlayerStateManager player, float _currentSpeed)
     {
         Debug.Log("Entered PlayerBoostState");
         currentSpeed = _currentSpeed;
+        lastFrameRotation = player.transform.rotation;
     }
 
     
@@ -51,16 +53,24 @@ public class PlayerBoostState : PlayerIdleState
         {
             player.GetComponent<Transform>().Rotate(0, 1, 0);
         }
+        else
+        {
+            if (player.GetComponent<Transform>().rotation != lastFrameRotation);
+            {
+                player.GetComponent<Transform>().rotation = lastFrameRotation;
+            }
+        }
+        lastFrameRotation = player.GetComponent<Transform>().rotation;
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public override void OnCollisionExit(PlayerStateManager player, Collision collision)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
@@ -85,6 +95,6 @@ public class PlayerBoostState : PlayerIdleState
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 }

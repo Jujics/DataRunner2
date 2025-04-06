@@ -23,12 +23,12 @@ public class PlayerTakeDamageState : PlayerIdleState
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public override void OnCollisionExit(PlayerStateManager player, Collision collision)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
@@ -43,6 +43,6 @@ public class PlayerTakeDamageState : PlayerIdleState
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
     {
-        throw new System.NotImplementedException();
+        return;
     }
 }
