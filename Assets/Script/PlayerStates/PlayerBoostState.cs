@@ -31,13 +31,11 @@ public class PlayerBoostState : PlayerIdleState
             currentSpeed = Mathf.Lerp(currentSpeed, 0f, 5f * Time.deltaTime);
         }
 
-        Debug.Log(playerInput.Player.Boost.ReadValue<float>());
         if (playerInput.Player.Boost.ReadValue<float>() == 0f || player.boostAmount <= 0)
         {
             player.SwitchState(new PlayerForwardState(), currentSpeed);
         }
         player.boostAmount--;
-        Debug.Log(player.boostAmount);
         Turn(player, playerInput);
         
     }
