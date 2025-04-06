@@ -15,11 +15,11 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWaitState waitState = new PlayerWaitState();
     public int boostAmount = 100;
     public int scoreAmount = 10;
-    public ComboManager comboManager;
     public float currentSpeed = 0f;
     
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected TMP_Text scoreText;
+    [SerializeField] protected TMP_Text comboText;
     private PlayerInput actionAsset;
 
     private void Awake()
@@ -63,10 +63,15 @@ public class PlayerStateManager : MonoBehaviour
         currentState.OnCollisionExit(this, other);
     }
 
-    void FixedUpdate()
+    private void LateUpdate()
     {
         speedText.text = currentSpeed.ToString("0.0");
         scoreText.text = scoreAmount.ToString();
+        comboText.text = ComboManager.CurrentCombo.ToString();
+    }
+
+    void FixedUpdate()
+    {
         currentState.UpdateState(this, actionAsset);
     }
 
