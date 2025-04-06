@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = newState;
         Debug.Log($"Game state changed to: {newState}"); 
-
+        HandleState();
     }
 
     void Awake()

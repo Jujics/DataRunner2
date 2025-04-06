@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pylone
   - BoostPylone
+  - Collectible
   layers:
   - Default
   - TransparentFX

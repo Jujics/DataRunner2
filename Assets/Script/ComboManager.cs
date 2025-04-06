@@ -7,12 +7,12 @@ public class ComboManager
     private static Timer comboTimer;
     private static readonly object lockObject = new object();
 
-    public int CurrentCombo
+    public static int CurrentCombo
     {
         get { lock (lockObject) { return currentCombo; } }
     }
 
-    public void ComboCount()
+    public static void ComboCount()
     {
         lock (lockObject)
         {
@@ -29,7 +29,7 @@ public class ComboManager
         }
     }
 
-    private void OnTimedEvent(object source, ElapsedEventArgs e)
+    private static void OnTimedEvent(object source, ElapsedEventArgs e)
     {
         lock (lockObject)
         {

@@ -92,8 +92,8 @@ public class PlayerForwardState : PlayerIdleState
         if (other.tag == "Collectible")
         {
             other.gameObject.SetActive(false);
-            player.comboManager.ComboCount();
-            player.scoreAmount += 10 * player.comboManager.CurrentCombo;
+            ComboManager.ComboCount();
+            player.scoreAmount += 10 * ComboManager.CurrentCombo;
         }
     }
 
