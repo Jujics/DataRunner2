@@ -17,7 +17,7 @@ public class PlayerStateManager : MonoBehaviour
     public int scoreAmount = 10;
     public float currentSpeed = 0f;
     public float currentTurnSpeed = 0f;
-    
+    public GameObject questCanvas;
     
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected TMP_Text scoreText;

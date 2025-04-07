@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
@@ -7,6 +8,10 @@ public class QuestManager : MonoBehaviour
     private QuestType questType;
     [SerializeField]
     private string questName;
+    public string QuestName { get => questName; }
+    [SerializeField]
+    private TMP_Text questText;
+    public TMP_Text QuestText { get => questText; }
 
     #region Bus quest stuff
     
