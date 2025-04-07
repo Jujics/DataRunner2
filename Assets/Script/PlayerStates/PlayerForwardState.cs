@@ -106,6 +106,7 @@ public class PlayerForwardState : PlayerIdleState
             string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
             other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
             player.questCanvas.gameObject.SetActive(true);
+            player.currentQuestManager = other.gameObject.GetComponent<QuestManager>();
         }
     }
 
@@ -114,6 +115,7 @@ public class PlayerForwardState : PlayerIdleState
         if (other.CompareTag("StartQuest"))
         {
             player.questCanvas.gameObject.SetActive(false);
+            player.currentQuestManager = null;
         }
     }
 }

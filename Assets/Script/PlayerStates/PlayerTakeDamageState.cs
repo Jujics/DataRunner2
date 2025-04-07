@@ -77,6 +77,10 @@ public class PlayerTakeDamageState : PlayerIdleState
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
     {
-        return;
+        if (other.CompareTag("StartQuest"))
+        {
+            player.questCanvas.gameObject.SetActive(false);
+            player.currentQuestManager = null;
+        }
     }
 }

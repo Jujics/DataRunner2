@@ -14,7 +14,11 @@ public class QuestManager : MonoBehaviour
     public TMP_Text QuestText { get => questText; }
 
     #region Bus quest stuff
-    
+
+    [SerializeField] 
+    private string[] dialStartList;
+    [SerializeField] 
+    private string[] dialEndList;
     [SerializeField]
     private GameObject startLine;
     [SerializeField]
@@ -23,15 +27,20 @@ public class QuestManager : MonoBehaviour
     private GameObject player;
     
     #endregion
-    
-    void Start()
-    {
-        
-    }
 
-    void Update()
+    public void StartQuest()
     {
-        
+        switch (questType)
+        {
+            case QuestType.BusRoute:
+                player.transform.position = startLine.transform.position;
+                player.transform.rotation = startLine.transform.rotation;
+                break;
+            case QuestType.OtherStuff:
+                break;
+            default:
+                break;
+        }
     }
 
     public enum QuestType

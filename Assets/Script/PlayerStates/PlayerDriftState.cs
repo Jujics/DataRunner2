@@ -31,6 +31,13 @@ public class PlayerDriftState : PlayerIdleState
             ComboManager.ComboCount();
             player.scoreAmount += 10 * ComboManager.CurrentCombo;
         }
+        if (other.CompareTag("StartQuest"))
+        {
+            string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
+            other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
+            player.questCanvas.gameObject.SetActive(true);
+            player.currentQuestManager = other.gameObject.GetComponent<QuestManager>();
+        }
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)

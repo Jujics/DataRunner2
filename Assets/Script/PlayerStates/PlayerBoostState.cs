@@ -100,10 +100,22 @@ public class PlayerBoostState : PlayerIdleState
             ComboManager.ComboCount();
             player.scoreAmount += 10 * ComboManager.CurrentCombo;
         }
+        
+        if (other.CompareTag("StartQuest"))
+        {
+            string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
+            other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
+            player.questCanvas.gameObject.SetActive(true);
+            player.currentQuestManager = other.gameObject.GetComponent<QuestManager>();
+        }
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
     {
-        return;
+        if (other.CompareTag("StartQuest"))
+        {
+            player.questCanvas.gameObject.SetActive(false);
+            player.currentQuestManager = null;
+        }
     }
 }

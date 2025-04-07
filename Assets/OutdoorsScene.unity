@@ -1047,13 +1047,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322026157}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.89879405, z: 0, w: 0.4383712}
   m_LocalPosition: {x: 10.24, y: 4.71, z: -41.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 509872728}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -128, z: 0}
 --- !u!1 &331310625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,7 +1412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385253457}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.117927276, y: 0.00000007088672, z: -0.000000008418218, w: 0.99302226}
+  m_LocalRotation: {x: 0.11792643, y: 0.00000007088673, z: -0.000000008418158, w: 0.9930223}
   m_LocalPosition: {x: 483, y: 9.0199995, z: 521.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1820,6 +1820,7 @@ MonoBehaviour:
   currentSpeed: 0
   currentTurnSpeed: 0
   questCanvas: {fileID: 1780624734}
+  currentQuestManager: {fileID: 0}
   speedText: {fileID: 1206906515}
   scoreText: {fileID: 1974550872}
   comboText: {fileID: 151913065}
@@ -2415,7 +2416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 702786950}
   m_Layer: 0
-  m_Name: ==BoissyLaillerie==
+  m_Name: ==Ville==
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4476,7 +4477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1385658814}
   m_Layer: 0
-  m_Name: ==Anzin==
+  m_Name: ==Ville2==
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5233,7 +5234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.117927276, y: 0.00000007088672, z: -0.000000008418218, w: 0.99302226}
+  m_LocalRotation: {x: 0.11792643, y: 0.00000007088673, z: -0.000000008418158, w: 0.9930223}
   m_LocalPosition: {x: 483, y: 9.0199995, z: 521.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6081,6 +6082,15 @@ MonoBehaviour:
   questType: 0
   questName: Bus 95.41
   questText: {fileID: 1890485127}
+  dialStartList:
+  - 'Vsy c''est le bus '
+  - 'Va la bas '
+  - Roh
+  - Allez lets go
+  dialEndList:
+  - "Wsh tu as \xE9t\xE9 vite"
+  - (ou pas idk ca ce trouve ca fait 6 ans)
+  - "(j'ai pas verrifi\xE9 sorry pas mon dos)"
   startLine: {fileID: 322026157}
   endLine: {fileID: 1294571066}
   player: {fileID: 464552150}

@@ -18,6 +18,7 @@ public class PlayerStateManager : MonoBehaviour
     public float currentSpeed = 0f;
     public float currentTurnSpeed = 0f;
     public GameObject questCanvas;
+    public QuestManager currentQuestManager;
     
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected TMP_Text scoreText;
@@ -77,6 +78,7 @@ public class PlayerStateManager : MonoBehaviour
         speedText.text = currentSpeed.ToString("0.0");
         scoreText.text = scoreAmount.ToString();
         comboText.text = ComboManager.CurrentCombo.ToString();
+        QuestStarted();
     }
 
     void FixedUpdate()
@@ -107,6 +109,15 @@ public class PlayerStateManager : MonoBehaviour
     {
         currentState = newState;
         newState.EnterState(this);
+    }
+    
+    private void QuestStarted()
+    {
+        if (actionAsset.Player.Dialogue.ReadValue<bool>() != true && currentQuestManager == null) return;
+        SwitchState(new PlayerWaitState());
+        currentSpeed = 0f;
+        currentQuestManager.StartQuest();
+        currentQuestManager = null;
     }
 
     

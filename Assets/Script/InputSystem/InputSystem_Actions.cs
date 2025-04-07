@@ -62,6 +62,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8eb872f-6f39-4538-8db6-6de70ca98568"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -183,6 +192,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca0b4c49-565b-46e0-96b2-91076dc9718b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -774,6 +794,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Forward = m_Player.FindAction("Forward", throwIfNotFound: true);
         m_Player_Turn = m_Player.FindAction("Turn", throwIfNotFound: true);
         m_Player_Boost = m_Player.FindAction("Boost", throwIfNotFound: true);
+        m_Player_Dialogue = m_Player.FindAction("Dialogue", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -857,6 +878,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Forward;
     private readonly InputAction m_Player_Turn;
     private readonly InputAction m_Player_Boost;
+    private readonly InputAction m_Player_Dialogue;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -865,6 +887,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Forward => m_Wrapper.m_Player_Forward;
         public InputAction @Turn => m_Wrapper.m_Player_Turn;
         public InputAction @Boost => m_Wrapper.m_Player_Boost;
+        public InputAction @Dialogue => m_Wrapper.m_Player_Dialogue;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -886,6 +909,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Boost.started += instance.OnBoost;
             @Boost.performed += instance.OnBoost;
             @Boost.canceled += instance.OnBoost;
+            @Dialogue.started += instance.OnDialogue;
+            @Dialogue.performed += instance.OnDialogue;
+            @Dialogue.canceled += instance.OnDialogue;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -902,6 +928,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Boost.started -= instance.OnBoost;
             @Boost.performed -= instance.OnBoost;
             @Boost.canceled -= instance.OnBoost;
+            @Dialogue.started -= instance.OnDialogue;
+            @Dialogue.performed -= instance.OnDialogue;
+            @Dialogue.canceled -= instance.OnDialogue;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1088,6 +1117,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnForward(InputAction.CallbackContext context);
         void OnTurn(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
+        void OnDialogue(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
