@@ -8,6 +8,8 @@ TagManager:
   - BoostPylone
   - Collectible
   - Damage
+  - StartQuest
+  - EndLine
   layers:
   - Default
   - TransparentFX

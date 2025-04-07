@@ -14,15 +14,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 464.78
+      value: -580.6137
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.1
+      value: 38.398293
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 520.6065
+      value: -701.65424
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
       propertyPath: m_LocalRotation.z
@@ -104,8 +104,8 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: -0.06580925, y: 3.9972014, z: 2.4292269}
   m_Size: 25.601995
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
+  m_FadeMode: 1
+  m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
   - screenRelativeHeight: 0.6
