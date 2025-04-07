@@ -4,13 +4,15 @@ using UnityEngine.InputSystem;
 public class PlayerTakeDamageState : PlayerIdleState
 {
     
-    private float maxSpeed = 5f;
+    private float maxSpeed;
+    private float maxTurnSpeed = 100f;
     private static float t = 3f;
     private Quaternion lastFrameRotation;
     public override void EnterState(PlayerStateManager player)
     {
         Debug.Log("Entered PlayerDamageState");
         lastFrameRotation = player.transform.rotation;
+        maxSpeed = player.currentSpeed - 20f;
     }
 
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
@@ -32,7 +34,7 @@ public class PlayerTakeDamageState : PlayerIdleState
         Turn(player, playerInput);
     }
     
-    public void Turn(PlayerStateManager player , PlayerInput playerInput)
+    private void Turn(PlayerStateManager player , PlayerInput playerInput)
     {
         float turnInput = playerInput.Player.Turn.ReadValue<float>();
         if (turnInput > 0.1f)
@@ -65,7 +67,7 @@ public class PlayerTakeDamageState : PlayerIdleState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
     {
-        if (other.tag == "Collectible")
+        if (other.CompareTag("Collectible"))
         {
             other.gameObject.SetActive(false);
             ComboManager.ComboCount();

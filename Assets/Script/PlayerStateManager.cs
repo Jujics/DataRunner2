@@ -16,6 +16,8 @@ public class PlayerStateManager : MonoBehaviour
     public int boostAmount = 100;
     public int scoreAmount = 10;
     public float currentSpeed = 0f;
+    public float currentTurnSpeed = 0f;
+    
     
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected TMP_Text scoreText;
@@ -80,4 +82,6 @@ public class PlayerStateManager : MonoBehaviour
         currentState = newState;
         newState.EnterState(this);
     }
+
+    
 }

@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerBoostState : PlayerIdleState
 {
-    private float maxSpeed = 50f;
+    private float turnSpeed = 50f;       
+    private float maxSpeed = 100f;
     private Quaternion lastFrameRotation;
     static float t = 0.0f;
     
@@ -40,25 +41,29 @@ public class PlayerBoostState : PlayerIdleState
         
     }
     
-    public void Turn(PlayerStateManager player , PlayerInput playerInput)
+    private void Turn(PlayerStateManager player, PlayerInput playerInput)
     {
         float turnInput = playerInput.Player.Turn.ReadValue<float>();
-        if (turnInput > 0.1f)
+    
+        if (Mathf.Abs(turnInput) > 0.1f) 
         {
-            player.GetComponent<Transform>().Rotate(0, -1, 0);
+            player.currentTurnSpeed = (turnInput > 0) ? -turnSpeed : turnSpeed;
+            player.transform.Rotate(0, player.currentTurnSpeed * Time.deltaTime, 0);
         }
-        else if (turnInput < -0.1f)
+        else 
         {
-            player.GetComponent<Transform>().Rotate(0, 1, 0);
+            player.currentTurnSpeed = 0f;
+        }
+    
+        if (Mathf.Abs(player.currentTurnSpeed) > 0.01f)
+        {
+            player.transform.Rotate(0, player.currentTurnSpeed * Time.deltaTime, 0);
+            lastFrameRotation = player.transform.rotation;
         }
         else
         {
-            if (player.GetComponent<Transform>().rotation != lastFrameRotation);
-            {
-                player.GetComponent<Transform>().rotation = lastFrameRotation;
-            }
+            player.transform.rotation = lastFrameRotation;
         }
-        lastFrameRotation = player.GetComponent<Transform>().rotation;
     }
 
     public override void OnCollisionEnter(PlayerStateManager player, Collision collision)
@@ -73,17 +78,23 @@ public class PlayerBoostState : PlayerIdleState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
     {
-        if (other.tag == "Damage")
+        if (other.CompareTag("Damage"))
         {
             player.SwitchState(new PlayerTakeDamageState());
         }
 
-        if (other.tag == "Boost")
+        if (other.CompareTag("BoostPad"))
         {
             player.SwitchState(new PlayerBoostPadState());
         }
+        
+        if (other.CompareTag("BoostPylone"))
+        {
+            player.SwitchState(new PlayerBoostPadState());
+            player.boostAmount += 10;
+        }
 
-        if (other.tag == "Collectible")
+        if (other.CompareTag("Collectible"))
         {
             other.gameObject.SetActive(false);
             ComboManager.ComboCount();
