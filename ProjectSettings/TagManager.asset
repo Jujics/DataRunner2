@@ -10,6 +10,7 @@ TagManager:
   - Damage
   - StartQuest
   - EndLine
+  - BoostPad
   layers:
   - Default
   - TransparentFX
