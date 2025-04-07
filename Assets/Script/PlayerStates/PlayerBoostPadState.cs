@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerBoostPadState : PlayerIdleState
 {
     
-    private float maxSpeed = 120f;
+    private float maxSpeed = 50f;
     private float maxTurnSpeed = 100f;
     private static float t = 3f;
     private Quaternion lastFrameRotation;

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerBoostState : PlayerIdleState
 {
     private float turnSpeed = 50f;       
-    private float maxSpeed = 100f;
+    private float maxSpeed = 40f;
     private Quaternion lastFrameRotation;
     static float t = 0.0f;
     
