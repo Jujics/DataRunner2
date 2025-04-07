@@ -5644,6 +5644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980452012}
   - component: {fileID: 1980452013}
+  - component: {fileID: 1980452014}
   m_Layer: 0
   m_Name: StartQuest
   m_TagString: StartQuest
@@ -5687,6 +5688,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.8662114, y: 6.1836786, z: 5.3570757}
   m_Center: {x: 0.5970917, y: 0.89071655, z: -0.4774121}
+--- !u!114 &1980452014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980452011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4efba3a82da5512418e2d3cff3856d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questType: 0
+  questName: 
+  startLine: {fileID: 322026157}
+  endLine: {fileID: 1294571066}
+  player: {fileID: 0}
 --- !u!1 &2008867768
 GameObject:
   m_ObjectHideFlags: 0
