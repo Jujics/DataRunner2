@@ -22,6 +22,13 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected TMP_Text scoreText;
     [SerializeField] protected TMP_Text comboText;
+    
+    [Header("Ground Snapping")]
+    [SerializeField] private LayerMask groundLayer; 
+    [SerializeField] private float raycastDistance;
+    [SerializeField] private float groundSnapForce;
+    [SerializeField] private float slopeAlignmentSpeed;
+    
     private PlayerInput actionAsset;
 
     private void Awake()
@@ -75,6 +82,25 @@ public class PlayerStateManager : MonoBehaviour
     void FixedUpdate()
     {
         currentState.UpdateState(this, actionAsset);
+        SnapToGround();
+        AlignWithGround();
+    }
+
+    private void SnapToGround()
+    {
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, raycastDistance, groundLayer))
+        {
+            GetComponent<Rigidbody>().AddForce(-transform.up * groundSnapForce, ForceMode.Acceleration);
+        }
+    }
+
+    private void AlignWithGround()
+    {
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, raycastDistance, groundLayer))
+        {
+            Quaternion targetRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, slopeAlignmentSpeed * Time.fixedDeltaTime);
+        }
     }
 
     public void SwitchState(PlayerIdleState newState)

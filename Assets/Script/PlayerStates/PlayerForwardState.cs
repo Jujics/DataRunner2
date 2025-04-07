@@ -7,7 +7,7 @@ using Debug = UnityEngine.Debug;
 public class PlayerForwardState : PlayerIdleState
 {
     private float turnSpeed = 50f;       
-    private float maxSpeed = 20f;
+    private float maxSpeed = 50f;
     private Quaternion lastFrameRotation;
     static float t = 0.0f;
     
