@@ -25,18 +25,11 @@ public class PlayerDriftState : PlayerIdleState
 
     public override void OnTriggerEnter(PlayerStateManager player, Collider other)
     {
-        if (other.tag == "Collectible")
+        if (other.CompareTag("Collectible"))
         {
             other.gameObject.SetActive(false);
             ComboManager.ComboCount();
             player.scoreAmount += 10 * ComboManager.CurrentCombo;
-        }
-        if (other.CompareTag("StartQuest"))
-        {
-            string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
-            other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
-            player.questCanvas.gameObject.SetActive(true);
-            player.currentQuestManager = other.gameObject.GetComponent<QuestManager>();
         }
     }
 

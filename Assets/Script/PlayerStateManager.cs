@@ -18,8 +18,12 @@ public class PlayerStateManager : MonoBehaviour
     public float currentSpeed = 0f;
     public float currentTurnSpeed = 0f;
     public GameObject questCanvas;
-    public QuestManager currentQuestManager;
+    public GameObject[] vehicule;
+    public bool canMove = true;
     
+    private QuestManager currentQuestManager;
+    private bool inQuest = false;
+    public bool InQuest { get => inQuest; set => inQuest = value; }
     [SerializeField] protected TMP_Text speedText;
     [SerializeField] protected TMP_Text scoreText;
     [SerializeField] protected TMP_Text comboText;
@@ -30,7 +34,7 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] private float groundSnapForce;
     [SerializeField] private float slopeAlignmentSpeed;
     
-    private PlayerInput actionAsset;
+    public PlayerInput actionAsset;
 
     private void Awake()
     {
@@ -56,11 +60,23 @@ public class PlayerStateManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentState.OnTriggerEnter(this, other);
+        if (other.CompareTag("StartQuest")&& !inQuest)
+        {
+            string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
+            other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
+            questCanvas.gameObject.SetActive(true);
+            currentQuestManager = other.gameObject.GetComponent<QuestManager>();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         currentState.OnTriggerExit(this, other);
+        if (other.CompareTag("StartQuest")&& !inQuest)
+        {
+            questCanvas.gameObject.SetActive(false);
+            currentQuestManager = null;
+        }
     }
 
     private void OnCollisionEnter(Collision other)
@@ -113,11 +129,15 @@ public class PlayerStateManager : MonoBehaviour
     
     private void QuestStarted()
     {
-        if (actionAsset.Player.Dialogue.ReadValue<bool>() != true && currentQuestManager == null) return;
+        bool isDialoguePressed = actionAsset.Player.Dialogue.ReadValue<float>() > 0.5f; 
+        if (!isDialoguePressed || currentQuestManager == null)
+            return;
+        questCanvas.SetActive(false);
         SwitchState(new PlayerWaitState());
         currentSpeed = 0f;
         currentQuestManager.StartQuest();
         currentQuestManager = null;
+        inQuest = true;
     }
 
     

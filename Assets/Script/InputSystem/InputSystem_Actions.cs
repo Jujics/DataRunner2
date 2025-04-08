@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextDial"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec7038fd-10f9-4b09-8dfc-10488eec58ff"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -203,6 +212,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dialogue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb3ae744-3e32-477f-abdc-3e09b71250cb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextDial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -795,6 +815,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Turn = m_Player.FindAction("Turn", throwIfNotFound: true);
         m_Player_Boost = m_Player.FindAction("Boost", throwIfNotFound: true);
         m_Player_Dialogue = m_Player.FindAction("Dialogue", throwIfNotFound: true);
+        m_Player_NextDial = m_Player.FindAction("NextDial", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -879,6 +900,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Turn;
     private readonly InputAction m_Player_Boost;
     private readonly InputAction m_Player_Dialogue;
+    private readonly InputAction m_Player_NextDial;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -888,6 +910,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Turn => m_Wrapper.m_Player_Turn;
         public InputAction @Boost => m_Wrapper.m_Player_Boost;
         public InputAction @Dialogue => m_Wrapper.m_Player_Dialogue;
+        public InputAction @NextDial => m_Wrapper.m_Player_NextDial;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -912,6 +935,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dialogue.started += instance.OnDialogue;
             @Dialogue.performed += instance.OnDialogue;
             @Dialogue.canceled += instance.OnDialogue;
+            @NextDial.started += instance.OnNextDial;
+            @NextDial.performed += instance.OnNextDial;
+            @NextDial.canceled += instance.OnNextDial;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -931,6 +957,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Dialogue.started -= instance.OnDialogue;
             @Dialogue.performed -= instance.OnDialogue;
             @Dialogue.canceled -= instance.OnDialogue;
+            @NextDial.started -= instance.OnNextDial;
+            @NextDial.performed -= instance.OnNextDial;
+            @NextDial.canceled -= instance.OnNextDial;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1118,6 +1147,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnTurn(InputAction.CallbackContext context);
         void OnBoost(InputAction.CallbackContext context);
         void OnDialogue(InputAction.CallbackContext context);
+        void OnNextDial(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

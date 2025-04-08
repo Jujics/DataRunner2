@@ -11,7 +11,7 @@ public class PlayerWaitState : PlayerIdleState
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
         Debug.Log("Player Wait State");
-        if (playerInput.Player.Forward.ReadValue<float>() < 0.9f)
+        if (playerInput.Player.Forward.ReadValue<float>() < 0.9f && player.canMove != true)
         {
             return;
         }
@@ -39,22 +39,10 @@ public class PlayerWaitState : PlayerIdleState
             ComboManager.ComboCount();
             player.scoreAmount += 10 * ComboManager.CurrentCombo;
         }
-        
-        if (other.CompareTag("StartQuest"))
-        {
-            string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
-            other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
-            player.questCanvas.gameObject.SetActive(true);
-            player.currentQuestManager = other.gameObject.GetComponent<QuestManager>();
-        }
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
     {
-        if (other.CompareTag("StartQuest"))
-        {
-            player.questCanvas.gameObject.SetActive(false);
-            player.currentQuestManager = null;
-        }
+        return;
     }
 }

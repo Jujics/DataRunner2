@@ -17,27 +17,30 @@ public class PlayerBoostState : PlayerIdleState
     
     public override void UpdateState(PlayerStateManager player, PlayerInput playerInput)
     {
-        float forwardInput = playerInput.Player.Forward.ReadValue<float>();
-        if (forwardInput > 0.1f || player.boostAmount > 0)  
+        if (player.canMove == true)
         {
-            Vector3 forwardMomentum = player.transform.forward * forwardInput;
-            player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * player.currentSpeed;
-            if (player.currentSpeed < maxSpeed)
+            float forwardInput = playerInput.Player.Forward.ReadValue<float>();
+            if (forwardInput > 0.1f || player.boostAmount > 0)  
             {
-                player.currentSpeed = Mathf.Lerp(player.currentSpeed, maxSpeed, 5f * Time.deltaTime); 
+                Vector3 forwardMomentum = player.transform.forward * forwardInput;
+                player.GetComponent<Rigidbody>().linearVelocity = forwardMomentum * player.currentSpeed;
+                if (player.currentSpeed < maxSpeed)
+                {
+                    player.currentSpeed = Mathf.Lerp(player.currentSpeed, maxSpeed, 5f * Time.deltaTime); 
+                }
             }
+            else
+            {
+                player.currentSpeed = Mathf.Lerp(player.currentSpeed, 0f, 5f * Time.deltaTime);
+            }
+    
+            if (playerInput.Player.Boost.ReadValue<float>() == 0f || player.boostAmount <= 0)
+            {
+                player.SwitchState(new PlayerForwardState());
+            }
+            player.boostAmount--;
+            Turn(player, playerInput);
         }
-        else
-        {
-            player.currentSpeed = Mathf.Lerp(player.currentSpeed, 0f, 5f * Time.deltaTime);
-        }
-
-        if (playerInput.Player.Boost.ReadValue<float>() == 0f || player.boostAmount <= 0)
-        {
-            player.SwitchState(new PlayerForwardState());
-        }
-        player.boostAmount--;
-        Turn(player, playerInput);
         
     }
     
@@ -101,21 +104,11 @@ public class PlayerBoostState : PlayerIdleState
             player.scoreAmount += 10 * ComboManager.CurrentCombo;
         }
         
-        if (other.CompareTag("StartQuest"))
-        {
-            string thisQuestName = other.gameObject.GetComponent<QuestManager>().QuestName;
-            other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
-            player.questCanvas.gameObject.SetActive(true);
-            player.currentQuestManager = other.gameObject.GetComponent<QuestManager>();
-        }
+        
     }
 
     public override void OnTriggerExit(PlayerStateManager player, Collider other)
     {
-        if (other.CompareTag("StartQuest"))
-        {
-            player.questCanvas.gameObject.SetActive(false);
-            player.currentQuestManager = null;
-        }
+        return;
     }
 }
