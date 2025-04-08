@@ -44,6 +44,8 @@ public class QuestManager : MonoBehaviour
 
     [SerializeField] 
     private CinemachineThirdPersonFollow playerCamera;
+    [SerializeField]
+    private MissionWaypoint missionWaypoint;
     private float carCameraDistance = 2f;
     private float carYShoulderOffset = 0.62f;
     private float busCameraDistance = 10f;
@@ -120,6 +122,7 @@ public class QuestManager : MonoBehaviour
         dialogueText.text = "";
         playerStateManager.canMove = true;
         endLine.SetActive(true);
+        missionWaypoint.Target = endLine.transform;
     
         Debug.Log("LoadQuest finished");
     }
@@ -154,6 +157,7 @@ public class QuestManager : MonoBehaviour
         playerStateManager.canMove = true;
         isRunning = false;
         playerStateManager.InQuest = false;
+        missionWaypoint.Target = null;
     }
     #endregion
 
