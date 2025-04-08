@@ -4007,37 +4007,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060088001}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1069731294 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4799349405225469770, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
-  m_PrefabInstance: {fileID: 2143470570657437779}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1069731295 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5319145299304914416, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
   m_PrefabInstance: {fileID: 2143470570657437779}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &1069731296
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069731294}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.0938344, y: 2.669446, z: 7.0791435}
-  m_Center: {x: 0, y: 1.4010141, z: -3.4661357}
 --- !u!1 &1110566928
 GameObject:
   m_ObjectHideFlags: 0
@@ -7425,6 +7399,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 702786950}
     m_Modifications:
+    - target: {fileID: 707002608867804014, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
+      propertyPath: m_AnimateCrossFading
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707002608867804014, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
+      propertyPath: m_LODs.Array.data[2].screenRelativeHeight
+      value: 0.05940935
+      objectReference: {fileID: 0}
     - target: {fileID: 4799349405225469770, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
       propertyPath: m_Name
       value: Buildings_Church_ver1.0
@@ -7472,10 +7454,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4799349405225469770, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1069731296}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1110b00c3fed68c44a7175e3d6ec7d52, type: 3}
 --- !u!1001 &2839211963377469550
 PrefabInstance:
