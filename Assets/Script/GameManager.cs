@@ -7,20 +7,20 @@ public class GameManager : MonoBehaviour
     
     public static GameManager instance{get; private set;}
     [SerializeField]
-    private DialogueManager dialogueManager;
+    private GameObject player;
+    private PlayerStateManager playerStateManager;
+    [SerializeField]
+    private GameObject menuCanvas;
+    [SerializeField]
+    private GameObject gameCanvas;
+    [SerializeField]
+    private CinematicManager cinematicManager;
 
     public enum GameState 
     {
         Menu,
-        BeforeGame,
-        Dialoguelvl1,
-        Duringlvl1,
-        Dialoguelvl2,
-        Duringlvl2,
-        Dialoguelvl3,
-        Duringlvl3,
-        Dialoguelvl4,
-        Duringlvl4,
+        Cinematic,
+        InGame,
         PostGame,
         EndGame
     }
@@ -52,31 +52,20 @@ public class GameManager : MonoBehaviour
         switch(CurrentState)
         {
             case GameState.Menu:
+                playerStateManager = player.GetComponent<PlayerStateManager>();
+                playerStateManager.canMove = false;
+                menuCanvas.SetActive(true);
+                gameCanvas.SetActive(false);
                 break;
-            case GameState.BeforeGame:
+            case GameState.Cinematic:
+                cinematicManager.PlayCinematic(0);
                 break;
-            case GameState.Dialoguelvl1:
-                dialogueManager.StartDialogue(1);
-                break;
-            case GameState.Duringlvl1:
-                break;
-            case GameState.Dialoguelvl2:
-                dialogueManager.StartDialogue(2);
-                break;
-            case GameState.Duringlvl2:
-                break;
-            case GameState.Dialoguelvl3:
-                dialogueManager.StartDialogue(3);
-                break;
-            case GameState.Duringlvl3:
-                break;
-            case GameState.Dialoguelvl4:
-                dialogueManager.StartDialogue(4);
-                break;
-            case GameState.Duringlvl4:
+            case GameState.InGame:
+                playerStateManager.canMove = true;
+                menuCanvas.SetActive(false);
+                gameCanvas.SetActive(true);
                 break;
             case GameState.EndGame:
-                dialogueManager.StartDialogue(5);
                 break;
             case GameState.PostGame:
                 break;
@@ -85,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        CurrentState = GameState.Menu;
+        SwitchState(GameState.Menu);
     }
 
     void Update()
