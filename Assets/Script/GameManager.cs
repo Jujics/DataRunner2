@@ -58,11 +58,11 @@ public class GameManager : MonoBehaviour
                 gameCanvas.SetActive(false);
                 break;
             case GameState.Cinematic:
+                menuCanvas.SetActive(false);
                 cinematicManager.PlayCinematic(0);
                 break;
             case GameState.InGame:
                 playerStateManager.canMove = true;
-                menuCanvas.SetActive(false);
                 gameCanvas.SetActive(true);
                 break;
             case GameState.EndGame:
