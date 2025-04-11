@@ -4,10 +4,8 @@ using UnityEngine.Video;
 
 public class CinematicManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject cinematic;
-    [SerializeField]
-    private VideoClip[] cinematicClip;
+    [SerializeField] private GameObject cinematic;
+    [SerializeField] private VideoPlayer[] videoPlayer;
 
     public void PlayCinematic(int cinematicIndex)
     {
@@ -17,9 +15,15 @@ public class CinematicManager : MonoBehaviour
 
     private IEnumerator WaitForCinematic(int cinematicIndex)
     {
-        
-        yield return new WaitForSeconds(0.5f);
+        videoPlayer[cinematicIndex].Play();
+        while (videoPlayer[cinematicIndex].isPlaying)
+        {
+            yield return null;
+        }
         cinematic.SetActive(false);
-        GameManager.instance.SwitchState(GameManager.GameState.InGame);
+        if (GameManager.instance.CurrentState != GameManager.GameState.InGame)
+        {
+            GameManager.instance.SwitchState(GameManager.GameState.InGame);
+        }
     }
 }

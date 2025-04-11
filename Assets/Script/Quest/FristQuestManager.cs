@@ -12,6 +12,7 @@ public class FirstQuestManager : MonoBehaviour
     [SerializeField] private MissionWaypoint wpManager;
     [SerializeField] private int playerPv;
     [SerializeField] private GameObject[] buttons;
+    [SerializeField] private CinematicManager cinematicManager;
 
     [Header("Enemy Stats")] 
     [SerializeField] private string enemyName;
@@ -56,7 +57,7 @@ public class FirstQuestManager : MonoBehaviour
         wpManager.Target = null;
         player.canMove = false;
         gameCanvas.SetActive(false);
-        Fight();
+        StartCoroutine(Cinematic());
     }
 
     private void Fight()
@@ -195,6 +196,14 @@ public class FirstQuestManager : MonoBehaviour
         yield return new WaitForSeconds(textDisplayTime * 2);
         fightCanvas.SetActive(false);
         gameCanvas.SetActive(true);
+    }
+
+
+    private IEnumerator Cinematic()
+    {
+        cinematicManager.PlayCinematic(1);
+        yield return new WaitForSeconds(10f);
+        Fight();
     }
     
 
