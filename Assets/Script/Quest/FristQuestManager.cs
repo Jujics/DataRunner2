@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class FirstQuestManager : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class FirstQuestManager : MonoBehaviour
         wpManager.Target = null;
         player.canMove = false;
         gameCanvas.SetActive(false);
-        StartCoroutine(Cinematic());
+        StartCoroutine(CinematicAndFight());
     }
 
     private void Fight()
@@ -199,11 +200,10 @@ public class FirstQuestManager : MonoBehaviour
     }
 
 
-    private IEnumerator Cinematic()
+    private IEnumerator CinematicAndFight()
     {
-        cinematicManager.PlayCinematic(1);
-        yield return new WaitForSeconds(10f);
-        Fight();
+        yield return StartCoroutine(cinematicManager.PlayCinematicAndWait(1)); // Wait for cinematic
+        Fight(); 
     }
     
 

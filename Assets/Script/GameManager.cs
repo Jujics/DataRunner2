@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Cinematic:
                 menuCanvas.SetActive(false);
-                cinematicManager.PlayCinematic(0);
+                Debug.Log($"Game state changed to: {CurrentState}");
+                StartCoroutine(cinematicManager.PlayCinematicAndWait(0));
                 break;
             case GameState.InGame:
                 firstQuestManager.StartQuest();
