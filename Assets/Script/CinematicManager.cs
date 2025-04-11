@@ -6,8 +6,8 @@ public class CinematicManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject cinematic;
-    //[SerializeField]
-    //private VideoClip[] cinematicClip;
+    [SerializeField]
+    private VideoClip[] cinematicClip;
 
     public void PlayCinematic(int cinematicIndex)
     {
@@ -17,7 +17,7 @@ public class CinematicManager : MonoBehaviour
 
     private IEnumerator WaitForCinematic(int cinematicIndex)
     {
-        //play cinematique[cinematicIndex]
+        
         yield return new WaitForSeconds(0.5f);
         cinematic.SetActive(false);
         GameManager.instance.SwitchState(GameManager.GameState.InGame);

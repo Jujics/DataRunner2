@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private GameObject gameCanvas;
     [SerializeField]
     private CinematicManager cinematicManager;
+    [SerializeField]
+    private FirstQuestManager firstQuestManager;
 
     public enum GameState 
     {
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
                 cinematicManager.PlayCinematic(0);
                 break;
             case GameState.InGame:
+                firstQuestManager.StartQuest();
                 playerStateManager.canMove = true;
                 gameCanvas.SetActive(true);
                 break;
