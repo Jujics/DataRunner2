@@ -4,6 +4,9 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyState currentState;
     
+    private Transform target;
+    public Transform Target { set => target = value; }
+    
     void Start()
     {
         currentState = EnemyState.Waiting;

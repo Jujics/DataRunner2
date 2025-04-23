@@ -44,6 +44,7 @@ public class FightManager : MonoBehaviour
         enemy = Instantiate(enemyPrefab);
         enemy.transform.position = playerSpawn.transform.position;
         enemyController = enemy.GetComponent<EnemyController>();
+        enemyController.Target = player.transform;
         borderGameObject.SetActive(true);
         StartCoroutine(DialoguePhase(dialogueStart));
     }
@@ -74,13 +75,14 @@ public class FightManager : MonoBehaviour
         
             yield return waitUntil;
         }
-        playerStateManager.canMove = true;
+        
         Fight();
     }
 
     private void Fight()
     {
-        
+        playerStateManager.canMove = true;
+        enemyController.SwitchState(EnemyController.EnemyState.GettingCloser);
     }
     
     
