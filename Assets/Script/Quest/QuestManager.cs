@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    [Header("Base quest var")]
     
     [SerializeField]
     private QuestType questType;
@@ -23,8 +24,17 @@ public class QuestManager : MonoBehaviour
     private bool isRunning;
     public bool IsRunning { get => isRunning; }
 
-    #region Bus quest stuff
+    #region FightQuest Variables
 
+    [Header("FightQuest Variables")] 
+    
+    [SerializeField] private GameObject fightUi;
+    [SerializeField] private FightManager fightManager;
+
+    #endregion
+
+    #region Bus quest stuff
+    [Header("BusQuest Variables")]
     [SerializeField] 
     private string[] dialStartList;
     [SerializeField] 
@@ -74,12 +84,52 @@ public class QuestManager : MonoBehaviour
                 playerStateManager.vehicule[1].SetActive(true);
                 StartCoroutine(BusLoadQuest());
                 break;
+            case QuestType.Fight:
+                playerStateManager.canMove = false;
+                loadingScreen.SetActive(true);
+                isRunning = true;
+                StartFight();
+                break;
             case QuestType.OtherStuff:
                 break;
             default:
                 break;
         }
     }
+
+
+    #region Fight Quest Logic
+
+    private void StartFight()
+    {
+        if (fightManager != null)
+        {
+            fightManager.OnPlayerDeath += OnPlayerDeath;
+            fightManager.OnEnemyDeath += OnEnemyDeath;
+            fightManager.Fight(player);
+        }
+    }
+    
+
+    private void OnPlayerDeath()
+    {
+        
+    }
+
+    private void OnEnemyDeath()
+    {
+        
+    }
+
+    private void EndFight()
+    {
+        fightManager.OnPlayerDeath -= OnPlayerDeath;
+        fightManager.OnEnemyDeath -= OnEnemyDeath;
+    }
+
+    #endregion
+    
+    
 
     #region Bus quest logic
     public void BusPlayerArrived()
@@ -164,6 +214,7 @@ public class QuestManager : MonoBehaviour
     public enum QuestType
     {
         BusRoute,
+        Fight,
         OtherStuff
     }
 }
