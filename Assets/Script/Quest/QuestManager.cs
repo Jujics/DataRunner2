@@ -106,7 +106,7 @@ public class QuestManager : MonoBehaviour
         {
             fightManager.OnPlayerDeath += OnPlayerDeath;
             fightManager.OnEnemyDeath += OnEnemyDeath;
-            fightManager.Fight(player);
+            fightManager.BeforeFight(player);
         }
     }
     

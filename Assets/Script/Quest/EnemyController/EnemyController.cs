@@ -2,15 +2,59 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private EnemyState currentState;
+    
     void Start()
     {
-        
+        currentState = EnemyState.Waiting;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        switch (currentState)
+        {
+            case EnemyState.Waiting:
+                break;
+            case EnemyState.GettingCloser:
+                break;
+            case EnemyState.LongAttack:
+                break;
+            case EnemyState.ShortAttack:
+                break;
+            case EnemyState.Dead:
+                break;
+        }
+    }
+
+    private void StartState()
+    {
+        switch (currentState)
+        {
+            case EnemyState.Waiting:
+                break;
+            case EnemyState.GettingCloser:
+                break;
+            case EnemyState.LongAttack:
+                break;
+            case EnemyState.ShortAttack:
+                break;
+            case EnemyState.Dead:
+                break;
+        }
+    }
+
+    public void SwitchState(EnemyState newState)
+    {
+        currentState = newState;
         
+    }    
+
+    public enum EnemyState
+    {
+        Waiting,
+        LongAttack,
+        ShortAttack,
+        GettingCloser,
+        Dead
     }
 }
