@@ -4356,6 +4356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 399302309}
   - component: {fileID: 399302310}
+  - component: {fileID: 399302311}
   m_Layer: 0
   m_Name: ==FightZoneQuest ==
   m_TagString: Untagged
@@ -4404,6 +4405,33 @@ MonoBehaviour:
   player: {fileID: 0}
   playerCamera: {fileID: 0}
   missionWaypoint: {fileID: 0}
+--- !u!114 &399302311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399302308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879102cd3508ab445ab6850c18c83306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 0}
+  fightUi: {fileID: 0}
+  questManager: {fileID: 0}
+  borderGameObject: {fileID: 0}
+  dialogueStart: []
+  dialogueEnd: []
+  dialogueText: {fileID: 0}
+  enemyPv: 0
+  enemyLifeBar: {fileID: 0}
+  enemyPrefab: {fileID: 0}
+  enemySpawn: {fileID: 0}
+  playerPv: 0
+  playerLifeBar: {fileID: 0}
+  playerSpawn: {fileID: 0}
+  gunCar: {fileID: 0}
 --- !u!1001 &406500237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13271,8 +13299,8 @@ MonoBehaviour:
   m_SerializedVersion: 0
   m_AgentTypeID: 0
   m_CollectObjects: 1
-  m_Size: {x: 48.948135, y: 10, z: 59.372704}
-  m_Center: {x: -32.77863, y: 2, z: -14.647045}
+  m_Size: {x: 47.168343, y: 10, z: 59.072575}
+  m_Center: {x: -31.888733, y: 2, z: -14.79711}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -13284,7 +13312,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.30666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: e2d21a40b339b0440a22ddfb636fd6ab, type: 2}
   m_BuildHeightMesh: 0
