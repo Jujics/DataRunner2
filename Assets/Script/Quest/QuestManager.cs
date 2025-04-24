@@ -90,6 +90,12 @@ public class QuestManager : MonoBehaviour
                 isRunning = true;
                 StartFight();
                 break;
+
+            case QuestType.Peche:
+                isRunning = true;
+                playerStateManager.canMove = false;
+                //start la quête ici
+                break;
             case QuestType.OtherStuff:
                 break;
             default:
@@ -215,6 +221,7 @@ public class QuestManager : MonoBehaviour
     {
         BusRoute,
         Fight,
+        Peche,
         OtherStuff
     }
 }
