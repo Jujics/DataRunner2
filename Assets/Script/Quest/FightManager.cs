@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class FightManager : MonoBehaviour
@@ -42,7 +43,7 @@ public class FightManager : MonoBehaviour
         playerStateManager = player.GetComponent<PlayerStateManager>();
         player.transform.position = playerSpawn.transform.position;
         enemy = Instantiate(enemyPrefab);
-        enemy.transform.position = enemySpawn.transform.position;
+        enemy.GetComponent<NavMeshAgent>().Warp(enemySpawn.transform.position);
         enemyController = enemy.GetComponent<EnemyController>();
         enemyController.Target = player.transform;
         borderGameObject.SetActive(true);

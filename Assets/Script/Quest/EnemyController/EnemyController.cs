@@ -11,6 +11,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
 
+
+    private bool canShortAttack = true;
+    private bool canLongAttack = true;
     private bool inAttack;
     private Transform target;
     public Transform Target { set => target = value; }
@@ -40,18 +43,15 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Waiting:
                 break;
             case EnemyState.GettingCloser:
-                if (CanReachArea() == true)
-                {
-                    agent.SetDestination(target.position);
-                }
+                agent.SetDestination(target.position);
                 
-                if (Vector3.Distance(transform.position, target.position) <= chargeRange)
+                if (Vector3.Distance(transform.position, target.position) <= chargeRange && canShortAttack)
                 {
                     SwitchState(EnemyState.ShortAttack);
                 }
                 
                 else if (Vector3.Distance(transform.position, target.position) > chargeRange &&
-                         gunAttackChance > Random.value)
+                         gunAttackChance > Random.value && canLongAttack)
                 {
                     SwitchState(EnemyState.LongAttack);
                 }
@@ -84,39 +84,50 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
-    public bool CanReachArea() {
-        if (!agent.isActiveAndEnabled || !agent.isOnNavMesh)
-            Debug.Log("Can't reach area of a non-active agent");
-            return false;
-        
-        return agent.CalculatePath(target.position, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete;
-    }
+    
 
     private IEnumerator ShortAttack()
     {
-        Vector3 direction = target.transform.position ;
-        while (direction != transform.position)
+        canShortAttack = false;
+        agent.isStopped = true;
+        Vector3 direction = (target.transform.position - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, target.transform.position);
+        float duration = distance / dashSpeed;
+        float elapsed = 0f;
+    
+        while (elapsed < duration)
         {
-            transform.position += direction.normalized * dashSpeed * Time.deltaTime;
+            transform.position += direction * dashSpeed * Time.deltaTime;
+            elapsed += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
+    
         yield return new WaitForSeconds(0.2f);
+        agent.isStopped = false;
         SwitchState(EnemyState.GettingCloser);
+        yield return new WaitForSeconds(6f);
+        canShortAttack = true;
     }
 
     private IEnumerator LongAttack()
     {
-        Vector3 direction = target.transform.position ;
+        canLongAttack = false;
+        Vector3 direction = (target.transform.position - transform.position).normalized;
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().linearVelocity = direction.normalized * bulletSpeed;
+        bullet.transform.forward = direction;
+        Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+        bulletRb.linearVelocity = direction * bulletSpeed;
         yield return new WaitForSeconds(0.2f);
         SwitchState(EnemyState.GettingCloser);
-        yield return new WaitForSeconds(8f);
-        Destroy(bullet);
+        Destroy(bullet, 8f);
+        yield return new WaitForSeconds(6f);
+        canLongAttack = true;
     }
 
     public void SwitchState(EnemyState newState)
     {
         currentState = newState;
+        StartState();
     }    
 
     public enum EnemyState
