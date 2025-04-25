@@ -85,6 +85,7 @@ public class QuestManager : MonoBehaviour
                 StartCoroutine(BusLoadQuest());
                 break;
             case QuestType.Fight:
+                Debug.Log("StartFightQuest");
                 playerStateManager.canMove = false;
                 loadingScreen.SetActive(true);
                 isRunning = true;
@@ -108,12 +109,10 @@ public class QuestManager : MonoBehaviour
 
     private void StartFight()
     {
-        if (fightManager != null)
-        {
-            fightManager.OnPlayerDeath += OnPlayerDeath;
-            fightManager.OnEnemyDeath += OnEnemyDeath;
-            fightManager.BeforeFight(player);
-        }
+        Debug.Log("StartFightQuest2");
+        fightManager.OnPlayerDeath += OnPlayerDeath;
+        fightManager.OnEnemyDeath += OnEnemyDeath;
+        fightManager.BeforeFight();
     }
     
 

@@ -26,26 +26,27 @@ public class FightManager : MonoBehaviour
     private GameObject enemy;
     
     [Header("Player")]
+    [SerializeField] private GameObject player;
     [SerializeField] private int playerPv;
     [SerializeField] private Slider playerLifeBar;
     [SerializeField] private GameObject playerSpawn;
     [SerializeField] private GameObject gunCar;
-    private GameObject player;
     private PlayerStateManager playerStateManager;
     
     
     
     
-    public void BeforeFight(GameObject _player)
+    public void BeforeFight()
     {
-        player = _player;
+        Debug.Log("StartFightQuest3");
         playerStateManager = player.GetComponent<PlayerStateManager>();
         player.transform.position = playerSpawn.transform.position;
         enemy = Instantiate(enemyPrefab);
-        enemy.transform.position = playerSpawn.transform.position;
+        enemy.transform.position = enemySpawn.transform.position;
         enemyController = enemy.GetComponent<EnemyController>();
         enemyController.Target = player.transform;
         borderGameObject.SetActive(true);
+        Debug.Log("StartFightQuest4");
         StartCoroutine(DialoguePhase(dialogueStart));
     }
 
@@ -75,7 +76,7 @@ public class FightManager : MonoBehaviour
         
             yield return waitUntil;
         }
-        
+        dialogueText.text = "";
         Fight();
     }
 

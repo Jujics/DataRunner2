@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
         PostGame,
         EndGame
     }
-
+    
+    public bool skipQuest = false;
     public GameState CurrentState;
 
     public void SwitchState(GameState newState)  
@@ -65,8 +66,12 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(cinematicManager.PlayCinematicAndWait(0));
                 break;
             case GameState.InGame:
-                firstQuestManager.StartQuest();
+                if (skipQuest != true)
+                {
+                    firstQuestManager.StartQuest();    
+                }
                 playerStateManager.canMove = true;
+                menuCanvas.SetActive(false);
                 gameCanvas.SetActive(true);
                 break;
             case GameState.EndGame:
