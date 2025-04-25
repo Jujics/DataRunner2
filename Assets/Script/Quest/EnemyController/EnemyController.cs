@@ -22,11 +22,15 @@ public class EnemyController : MonoBehaviour
     private NavMeshPath navMeshPath;
     
     
+    void Awake()
+    {
+        navMeshPath = new NavMeshPath();
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     void Start()
     {
         currentState = EnemyState.Waiting;
-        agent = GetComponent<NavMeshAgent>();
-        navMeshPath = new NavMeshPath();
     }
 
     void FixedUpdate()
@@ -81,6 +85,10 @@ public class EnemyController : MonoBehaviour
         }
     }
     public bool CanReachArea() {
+        if (!agent.isActiveAndEnabled || !agent.isOnNavMesh)
+            Debug.Log("Can't reach area of a non-active agent");
+            return false;
+        
         return agent.CalculatePath(target.position, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete;
     }
 
