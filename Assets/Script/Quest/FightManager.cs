@@ -84,6 +84,8 @@ public class FightManager : MonoBehaviour
     private void Fight()
     {
         playerStateManager.canMove = true;
+        gunCar.SetActive(true);
+        fightUi.SetActive(true);
         enemyController.SwitchState(EnemyController.EnemyState.GettingCloser);
     }
     

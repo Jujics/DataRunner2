@@ -550,8 +550,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 642c928ceb80a5e43af753c2284167c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 16494835950328786}
   m_SourcePrefab: {fileID: 100100000, guid: 642c928ceb80a5e43af753c2284167c1, type: 3}
+--- !u!1 &19020262722466178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 642c928ceb80a5e43af753c2284167c1, type: 3}
+  m_PrefabInstance: {fileID: 901558878197927123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &16494835950328786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19020262722466178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c1b6f30f4f0f140a13d08d88b80ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 540542367378131071, guid: e3809b53ee75560489834b14f851ff3c, type: 3}
+  bulletSpawn: {fileID: 794958419972533048}
+  fireRate: 5
+  bulletSpeed: 100
+  timeBeforeDestruction: 8
+  playerStateManager: {fileID: 6540811915300789016}
 --- !u!4 &794958419972533048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 642c928ceb80a5e43af753c2284167c1, type: 3}
