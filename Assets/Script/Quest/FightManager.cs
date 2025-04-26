@@ -34,9 +34,7 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject gunCar;
     private PlayerStateManager playerStateManager;
     
-    
-    
-    
+
     public void BeforeFight()
     {
         Debug.Log("StartFightQuest3");
@@ -79,6 +77,16 @@ public class FightManager : MonoBehaviour
         }
         dialogueText.text = "";
         Fight();
+    }
+
+    public void PlayerLooseHealth()
+    {
+        
+    }
+    
+    public void EnemyLooseHealth()
+    {
+        
     }
 
     private void Fight()
