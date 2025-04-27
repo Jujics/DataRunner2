@@ -11,6 +11,8 @@ TagManager:
   - StartQuest
   - EndLine
   - BoostPad
+  - BulletEnemy
+  - Bullet
   layers:
   - Default
   - TransparentFX

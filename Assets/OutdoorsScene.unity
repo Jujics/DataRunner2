@@ -4519,7 +4519,7 @@ Transform:
   m_GameObject: {fileID: 399302308}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.47491834, z: -0, w: 0.88002986}
-  m_LocalPosition: {x: -197.14, y: 8.3, z: -549.28}
+  m_LocalPosition: {x: -197.14, y: 11.55, z: -549.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5274,6 +5274,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa82d06eb13ac894dba2febb0bbad898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &464552159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464552150}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 2.1187382}
+  m_Center: {x: -0.0000000010504366, y: 0, z: -0.55936915}
 --- !u!1 &465465133
 GameObject:
   m_ObjectHideFlags: 0
@@ -14110,7 +14131,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 806036783}
   m_FillRect: {fileID: 1890953076}
   m_HandleRect: {fileID: 806036782}
@@ -17335,7 +17356,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1078328822}
   m_FillRect: {fileID: 1473341396}
   m_HandleRect: {fileID: 1078328821}
@@ -21410,7 +21431,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6189273737694548241, guid: a4969c869a3e454429bf55f226c5d3ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 464552159}
   m_SourcePrefab: {fileID: 100100000, guid: a4969c869a3e454429bf55f226c5d3ef, type: 3}
 --- !u!1 &4733246375319688210 stripped
 GameObject:
