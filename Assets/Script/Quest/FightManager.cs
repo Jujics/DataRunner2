@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -25,6 +26,11 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject enemySpawn;
     private EnemyController enemyController;
     private GameObject enemy;
+    public int EnemyPv
+    {
+        set => enemyPv = value;
+        get => enemyPv;
+    }
     
     [Header("Player")]
     [SerializeField] private GameObject player;
@@ -33,6 +39,12 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject playerSpawn;
     [SerializeField] private GameObject gunCar;
     private PlayerStateManager playerStateManager;
+    public int PlayerPv
+    {
+        set => playerPv = value; 
+        get => playerPv; 
+    }
+    
     
 
     public void BeforeFight()
@@ -40,9 +52,11 @@ public class FightManager : MonoBehaviour
         Debug.Log("StartFightQuest3");
         playerStateManager = player.GetComponent<PlayerStateManager>();
         player.transform.position = playerSpawn.transform.position;
+        playerStateManager.fightManager = this;
         enemy = Instantiate(enemyPrefab);
         enemy.GetComponent<NavMeshAgent>().Warp(enemySpawn.transform.position);
         enemyController = enemy.GetComponent<EnemyController>();
+        enemyController.fightManager = this;
         enemyController.Target = player.transform;
         borderGameObject.SetActive(true);
         Debug.Log("StartFightQuest4");
@@ -79,14 +93,24 @@ public class FightManager : MonoBehaviour
         Fight();
     }
 
-    public void PlayerLooseHealth()
+    public void PlayerLooseHealth(int damage)
     {
-        
+        playerPv -= damage;
+        playerLifeBar.value = playerPv;
+        if (playerPv <= 0)
+        {
+            StartCoroutine(EndFight(false));
+        }
     }
     
-    public void EnemyLooseHealth()
+    public void EnemyLooseHealth(int damage)
     {
-        
+        enemyPv -= damage;
+        enemyLifeBar.value = playerPv;
+        if (enemyPv <= 0)
+        {
+            StartCoroutine(EndFight(true));
+        }
     }
 
     private void Fight()
@@ -94,8 +118,42 @@ public class FightManager : MonoBehaviour
         playerStateManager.canMove = true;
         gunCar.SetActive(true);
         fightUi.SetActive(true);
+        enemyLifeBar.maxValue = enemyPv;
+        enemyLifeBar.value = enemyPv;
+        playerLifeBar.maxValue = playerPv;
+        playerLifeBar.value = playerPv;
         enemyController.SwitchState(EnemyController.EnemyState.GettingCloser);
     }
+
+    private IEnumerator EndFight(bool hasWon)
+    {
+        playerStateManager.canMove = false;
+        gunCar.SetActive(false);
+        fightUi.SetActive(false);
+        loadingScreen.SetActive(true);
+        player.transform.position = questManager.gameObject.transform.position;
+        Destroy(enemy);
+        yield return new WaitForSeconds(2f);
+        switch (hasWon)
+        {
+            case true:
+                loadingScreen.SetActive(false);
+                //lose prefab set active
+                yield return new WaitForSeconds(3f);
+                borderGameObject.SetActive(false);
+                OnPlayerDeath?.Invoke();
+                break;
+            case false:
+                loadingScreen.SetActive(false);
+                //lose prefab set active
+                yield return new WaitForSeconds(3f);
+                borderGameObject.SetActive(false);
+                OnPlayerDeath?.Invoke();
+                break;
+        }
+    }
+    
+    
     
     
 }

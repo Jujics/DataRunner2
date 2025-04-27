@@ -20,6 +20,8 @@ public class PlayerStateManager : MonoBehaviour
     public GameObject questCanvas;
     public GameObject[] vehicule;
     public bool canMove = true;
+    [NonSerialized]
+    public FightManager fightManager;
     
     private QuestManager currentQuestManager;
     private bool inQuest = false;
@@ -66,6 +68,11 @@ public class PlayerStateManager : MonoBehaviour
             other.gameObject.GetComponent<QuestManager>().QuestText.text = thisQuestName;
             questCanvas.gameObject.SetActive(true);
             currentQuestManager = other.gameObject.GetComponent<QuestManager>();
+        }
+
+        if (other.CompareTag("Bullet") && fightManager != null)
+        {
+            fightManager.PlayerLooseHealth(1);
         }
     }
 

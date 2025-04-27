@@ -118,18 +118,24 @@ public class QuestManager : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        
+        isRunning = false;
+        playerStateManager.canMove = true;
+        playerStateManager.InQuest = false;
+        EndFight();
     }
 
     private void OnEnemyDeath()
     {
-        
+        isRunning = false;
+        playerStateManager.canMove = true;
+        playerStateManager.InQuest = false;
     }
 
     private void EndFight()
     {
         fightManager.OnPlayerDeath -= OnPlayerDeath;
         fightManager.OnEnemyDeath -= OnEnemyDeath;
+        EndFight();
     }
 
     #endregion

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
@@ -13,17 +15,20 @@ public class EnemyController : MonoBehaviour
 
 
     private bool canShortAttack = true;
+    private bool inShortAttack = false;
     private bool canLongAttack = true;
     private bool inAttack;
     private Transform target;
     public Transform Target { set => target = value; }
-
+    
     private Transform health;
     public Transform Health { set => health = value; }
     
     private NavMeshAgent agent; 
     private NavMeshPath navMeshPath;
     
+    [NonSerialized]
+    public FightManager fightManager;
     
     void Awake()
     {
@@ -88,6 +93,7 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator ShortAttack()
     {
+        inShortAttack = true;
         canShortAttack = false;
         agent.isStopped = true;
         Vector3 direction = (target.transform.position - transform.position).normalized;
@@ -101,7 +107,7 @@ public class EnemyController : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-    
+        inShortAttack = false;
         yield return new WaitForSeconds(0.2f);
         agent.isStopped = false;
         SwitchState(EnemyState.GettingCloser);
@@ -122,6 +128,19 @@ public class EnemyController : MonoBehaviour
         Destroy(bullet, 8f);
         yield return new WaitForSeconds(6f);
         canLongAttack = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && inShortAttack && fightManager != null)
+        {
+            fightManager.PlayerLooseHealth(1);
+        }
+
+        if (other.CompareTag("Bullet"))
+        {
+            fightManager.EnemyLooseHealth(1);
+        }
     }
 
     public void SwitchState(EnemyState newState)
