@@ -110,13 +110,12 @@ public class QuestManager : MonoBehaviour
     private void StartFight()
     {
         Debug.Log("StartFightQuest2");
-        fightManager.OnPlayerDeath += OnPlayerDeath;
-        fightManager.OnEnemyDeath += OnEnemyDeath;
+        fightManager.OnPlayerDeath += OnFightEnd;
         fightManager.BeforeFight();
     }
     
 
-    private void OnPlayerDeath()
+    private void OnFightEnd()
     {
         isRunning = false;
         playerStateManager.canMove = true;
@@ -124,17 +123,9 @@ public class QuestManager : MonoBehaviour
         EndFight();
     }
 
-    private void OnEnemyDeath()
-    {
-        isRunning = false;
-        playerStateManager.canMove = true;
-        playerStateManager.InQuest = false;
-    }
-
     private void EndFight()
     {
-        fightManager.OnPlayerDeath -= OnPlayerDeath;
-        fightManager.OnEnemyDeath -= OnEnemyDeath;
+        fightManager.OnPlayerDeath -= OnFightEnd;
         EndFight();
     }
 

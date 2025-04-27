@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4140715558851006343}
   - component: {fileID: 3484636693360950989}
   - component: {fileID: 5035558437681047703}
+  - component: {fileID: 6868294674500466643}
   m_Layer: 0
   m_Name: EnemyTypeOne
   m_TagString: Untagged
@@ -156,6 +157,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &6868294674500466643
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3475034420520174142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5737875, y: 1.7637198, z: 4.900361}
+  m_Center: {x: 0, y: 0, z: -1.2758393}
 --- !u!1001 &2249672881306520052
 PrefabInstance:
   m_ObjectHideFlags: 0

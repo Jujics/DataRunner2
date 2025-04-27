@@ -60,11 +60,11 @@ public class FightManager : MonoBehaviour
         enemyController.Target = player.transform;
         borderGameObject.SetActive(true);
         Debug.Log("StartFightQuest4");
-        StartCoroutine(DialoguePhase(dialogueStart));
+        StartCoroutine(DialoguePhase(dialogueStart, true));
     }
 
 
-    private IEnumerator DialoguePhase(string[] dialogue)
+    private IEnumerator DialoguePhase(string[] dialogue, bool where)
     {
         yield return new WaitForSeconds(2f);
         loadingScreen.SetActive(false);
@@ -90,7 +90,17 @@ public class FightManager : MonoBehaviour
             yield return waitUntil;
         }
         dialogueText.text = "";
-        Fight();
+
+        switch (where)
+        {
+            case true:
+                Fight();
+                break;
+            case false:
+                OnPlayerDeath?.Invoke();
+                break;
+        }
+        
     }
 
     public void PlayerLooseHealth(int damage)
@@ -141,14 +151,14 @@ public class FightManager : MonoBehaviour
                 //lose prefab set active
                 yield return new WaitForSeconds(3f);
                 borderGameObject.SetActive(false);
-                OnPlayerDeath?.Invoke();
+                StartCoroutine(DialoguePhase(dialogueEnd, false));
                 break;
             case false:
                 loadingScreen.SetActive(false);
                 //lose prefab set active
                 yield return new WaitForSeconds(3f);
                 borderGameObject.SetActive(false);
-                OnPlayerDeath?.Invoke();
+                StartCoroutine(DialoguePhase(dialogueEnd, false));
                 break;
         }
     }
